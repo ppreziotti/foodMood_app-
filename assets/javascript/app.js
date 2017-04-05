@@ -36,7 +36,7 @@ function homeScreen() {
 
 
 function openScreen() {
-  var cuisineType = $("<div class='cusineType'>");
+  var cuisineType = $("<div class='cuisineType'>");
   cuisineType.html("<h1 class='cuisineType'> What type of cuisine? </h1>");
   cuisineType.css({
     marginTop : "10px",
@@ -156,6 +156,19 @@ function yelpSearch() {
   }).done(function(data) {
       console.log(data);
       var businessId = [];
+
+      for ( i = 0; i < 10; i++) {
+         var result = data.businesses[i].id;
+         businessId.push(result);
+         console.log(businessId);
+      }
+
+      for( i = 0; i < businessId.length; i++){
+       var message2 = {
+         'action': 'https://api.yelp.com/v2/business/' + businessId[i],
+         'method': 'GET',
+         'parameters': parameters2
+      }
       for ( i = 0; i < 20; i++) {
         var result = data.businesses[i].id;
         var result2 = result.replace( /\-\d+$/, "");
@@ -202,8 +215,38 @@ function yelpSearch() {
         });
       }
 
+    }
+
       }).fail(function(jqXHR, textStatus, errorThrown) {
       console.log('error[' + errorThrown + '], status[' + textStatus + '], jqXHR[' + JSON.stringify(jqXHR) + ']');
   });
 
 }
+
+// Google Maps API Section
+
+// Run this function to get directions from the user's current location to the desired restaurant
+function getDirections() {
+
+  var apiKey = "AIzaSyDUxezpr4WRRo7HEPE-HgmQ4WYCexWVdQs";
+  var origin = "27705";
+  var destination = "27510";
+  var queryURL = "https://www.google.com/maps/embed/v1/directions?key=" + apiKey + 
+    "&origin=" + origin + "&destination=" + destination;
+  $.ajax({
+    url: queryURL,
+    method: "GET",
+  }).done(function(response) {
+    console.log(response);
+    var mapDisplay = $("<iframe>");
+    mapDisplay.attr("src", queryURL);
+    mapDisplay.attr("width", "600");
+    mapDisplay.attr("height", "450");
+    mapDisplay.attr("frameborder", "0");
+    mapDisplay.attr("style", "border:0");
+    $("mainSection").append(mapDisplay);
+  });
+
+}
+
+getDirections();
