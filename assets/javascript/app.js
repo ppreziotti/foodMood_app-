@@ -227,26 +227,16 @@ function yelpSearch() {
 
 // Run this function to get directions from the user's current location to the desired restaurant
 function getDirections() {
-
   var apiKey = "AIzaSyDUxezpr4WRRo7HEPE-HgmQ4WYCexWVdQs";
-  var origin = "27705";
+  var origin = userLocation;
   var destination = "27510";
   var queryURL = "https://www.google.com/maps/embed/v1/directions?key=" + apiKey + 
     "&origin=" + origin + "&destination=" + destination;
-  $.ajax({
-    url: queryURL,
-    method: "GET",
-  }).done(function(response) {
-    console.log(response);
-    var mapDisplay = $("<iframe>");
-    mapDisplay.attr("src", queryURL);
-    mapDisplay.attr("width", "600");
-    mapDisplay.attr("height", "450");
-    mapDisplay.attr("frameborder", "0");
-    mapDisplay.attr("style", "border:0");
-    $("mainSection").append(mapDisplay);
-  });
-
+  var mapDisplay = $("<iframe>");
+  mapDisplay.attr("src", queryURL);
+  mapDisplay.attr("width", "600");
+  mapDisplay.attr("height", "450");
+  mapDisplay.attr("frameborder", "0");
+  mapDisplay.attr("style", "border:0");
+  $("#mainSection").append(mapDisplay);
 }
-
-getDirections();
