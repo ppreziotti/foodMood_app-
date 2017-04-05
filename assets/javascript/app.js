@@ -1,5 +1,6 @@
 var userLocation;
 var cuisineChosen;
+var businessImage = [];
 
 function homeScreen() {
   var openingGreeting = $("<div>");
@@ -116,15 +117,13 @@ function yelpSearch() {
     }
   };
 
-  var terms = cuisineChosen;
-  var near = userLocation;
   var accessor = {
     consumerSecret: auth.consumerSecret,
     tokenSecret: auth.accessTokenSecret
   };
 
   var parameters = [];
-    parameters.push(['term', terms]);
+    parameters.push(['term', cuisineChosen]);
     parameters.push(['location', userLocation]);
     parameters.push(['oauth_consumer_key', auth.consumerKey]);
     parameters.push(['oauth_consumer_secret', auth.consumerSecret]);
@@ -132,12 +131,6 @@ function yelpSearch() {
     parameters.push(['oauth_signature_method', 'HMAC-SHA1']);
     parameters.push(['callback', 'cb']);
 
-  var parameters2 = [];
-    parameters2.push(['oauth_consumer_key', auth.consumerKey]);
-    parameters2.push(['oauth_consumer_secret', auth.consumerSecret]);
-    parameters2.push(['oauth_token', auth.accessToken]);
-    parameters2.push(['oauth_signature_method', 'HMAC-SHA1']);
-    parameters2.push(['callback', 'cb']);
 
   var message = {
     'action': 'https://api.yelp.com/v2/search',
@@ -158,11 +151,12 @@ function yelpSearch() {
     'url' : message.action,
     'data' : parameterMap,
     'dataType' : 'jsonp',
-    'jsonpCallback' : 'cb',
+    // 'jsonpCallback' : 'cb',
     'cache': true
   }).done(function(data) {
       console.log(data);
       var businessId = [];
+
       for ( i = 0; i < 10; i++) {
          var result = data.businesses[i].id;
          businessId.push(result);
@@ -174,6 +168,26 @@ function yelpSearch() {
          'action': 'https://api.yelp.com/v2/business/' + businessId[i],
          'method': 'GET',
          'parameters': parameters2
+      }
+      for ( i = 0; i < 20; i++) {
+        var result = data.businesses[i].id;
+        var result2 = result.replace( /\-\d+$/, "");
+        businessId.push(result2);
+        console.log(businessId);
+    }
+
+    for( i = 0; i < businessId.length; i++){
+      var parameters2 = [];
+        parameters2.push(['oauth_consumer_key', auth.consumerKey]);
+        parameters2.push(['oauth_consumer_secret', auth.consumerSecret]);
+        parameters2.push(['oauth_token', auth.accessToken]);
+        parameters2.push(['oauth_signature_method', 'HMAC-SHA1']);
+        parameters2.push(['callback', 'cb']);
+
+      var message2 = {
+        'action': 'https://api.yelp.com/v2/business/' + businessId[i],
+        'method': 'GET',
+        'parameters': parameters2
       };
 
       OAuth.setTimestampAndNonce(message2);
@@ -186,13 +200,20 @@ function yelpSearch() {
           'url': message2.action,
           'data': parameterMap2,
           'dataType' : 'jsonp',
-          'jsonpCallback' : 'cb',
+          // 'jsonpCallback' : 'cb',
           'cache': true
         }).done(function(response) {
-          console.log(response);
-        }).fail(function(errorThrown) {
+          // need to store image value and replace "ms" in jpg to change with "l" or "o"
+          var result = response.image_url;
+          var result2 = result.replace("ms", "l");
+          businessImage.push(result2);
+          console.log(businessImage);
+
+        }).fail(function(jqXHR, textStatus, errorThrown) {
           console.log(errorThrown);
+          console.log("text status: + " + textStatus);
         });
+      }
 
     }
 
