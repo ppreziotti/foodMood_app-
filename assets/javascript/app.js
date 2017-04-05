@@ -162,13 +162,18 @@ function yelpSearch() {
     'cache': true
   }).done(function(data) {
       console.log(data);
-      var businessId = data.businesses[0].id;
-      console.log(businessId);
+      var businessId = [];
+      for ( i = 0; i < 10; i++) {
+         var result = data.businesses[i].id;
+         businessId.push(result);
+         console.log(businessId);
+      }
 
-      var message2 = {
-        'action': 'https://api.yelp.com/v2/business/' + businessId,
-        'method': 'GET',
-        'parameters': parameters2
+      for( i = 0; i < businessId.length; i++){
+       var message2 = {
+         'action': 'https://api.yelp.com/v2/business/' + businessId[i],
+         'method': 'GET',
+         'parameters': parameters2
       };
 
       OAuth.setTimestampAndNonce(message2);
@@ -189,8 +194,38 @@ function yelpSearch() {
           console.log(errorThrown);
         });
 
+    }
+
       }).fail(function(jqXHR, textStatus, errorThrown) {
       console.log('error[' + errorThrown + '], status[' + textStatus + '], jqXHR[' + JSON.stringify(jqXHR) + ']');
   });
 
 }
+
+// Google Maps API Section
+
+// Run this function to get directions from the user's current location to the desired restaurant
+function getDirections() {
+
+  var apiKey = "AIzaSyDtkh6XFfYGn45tYldp5_EyX0kqdvZINBY";
+  var origin = "27705";
+  var destination = "27510";
+  var queryURL = "https://www.google.com/maps/embed/v1/directions?key=" + apiKey + 
+    "&origin=" + origin + "&destination=" + destination;
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).done(function(response) {
+    console.log(response);
+    var mapDisplay = $("<iframe>");
+    mapDisplay.attr("src", queryURL);
+    mapDisplay.attr("width", "600");
+    mapDisplay.attr("height", "450");
+    mapDisplay.attr("frameborder", "0");
+    mapDisplay.attr("style", "border:0");
+    $("mainSection").append(mapDisplay);
+  });
+
+}
+
+getDirections();
