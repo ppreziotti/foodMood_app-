@@ -36,7 +36,7 @@ function homeScreen() {
 
 
 function openScreen() {
-  var cuisineType = $("<div class='cusineType'>");
+  var cuisineType = $("<div class='cuisineType'>");
   cuisineType.html("<h1 class='cuisineType'> What type of cuisine? </h1>");
   cuisineType.css({
     marginTop : "10px",
@@ -228,14 +228,14 @@ function yelpSearch() {
 // Run this function to get directions from the user's current location to the desired restaurant
 function getDirections() {
 
-  var apiKey = "AIzaSyDtkh6XFfYGn45tYldp5_EyX0kqdvZINBY";
+  var apiKey = "AIzaSyDUxezpr4WRRo7HEPE-HgmQ4WYCexWVdQs";
   var origin = "27705";
   var destination = "27510";
   var queryURL = "https://www.google.com/maps/embed/v1/directions?key=" + apiKey + 
     "&origin=" + origin + "&destination=" + destination;
   $.ajax({
     url: queryURL,
-    method: "GET"
+    method: "GET",
   }).done(function(response) {
     console.log(response);
     var mapDisplay = $("<iframe>");
