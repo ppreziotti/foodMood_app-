@@ -36,7 +36,7 @@ function homeScreen() {
 
 
 function openScreen() {
-  var cuisineType = $("<div class='cusineType'>");
+  var cuisineType = $("<div class='cuisineType'>");
   cuisineType.html("<h1 class='cuisineType'> What type of cuisine? </h1>");
   cuisineType.css({
     marginTop : "10px",
@@ -205,5 +205,26 @@ function yelpSearch() {
       }).fail(function(jqXHR, textStatus, errorThrown) {
       console.log('error[' + errorThrown + '], status[' + textStatus + '], jqXHR[' + JSON.stringify(jqXHR) + ']');
   });
+
+}
+
+// Google Maps API Section
+
+// Run this function to get directions from the user's current location to the desired restaurant
+function getDirections() {
+
+ var apiKey = "AIzaSyDtkh6XFfYGn45tYldp5_EyX0kqdvZINBY";
+ var origin = userLocation;
+ var destination = businessId[0];
+ var queryURL = "https://www.google.com/maps/embed/v1/directions?key=" + apiKey +
+   "&origin=" + origin + "&destination=" + destination;
+   console.log(queryURL);
+   var mapDisplay = $("<iframe>");
+   mapDisplay.attr("src", queryURL);
+   mapDisplay.attr("width", "600");
+   mapDisplay.attr("height", "450");
+   mapDisplay.attr("frameborder", "0");
+   mapDisplay.attr("style", "border:0");
+   $("#mainSection").append(mapDisplay);
 
 }
