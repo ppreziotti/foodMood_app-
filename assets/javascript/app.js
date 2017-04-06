@@ -93,6 +93,7 @@ $(document).on("click", "#homeScreenSubmit", function(event) {
   $("#mainSection").empty();
 
   openScreen();
+
 });
 
 $(document).on("click", "#getStarted", function(event) {
