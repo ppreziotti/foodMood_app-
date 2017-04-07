@@ -1,117 +1,151 @@
 @font-face {
-  font-family: "tinderFont";
-  src: url(fonts/tinderFont.ttf);
+ font-family: "tinderFont";
+ src: url(fonts/tinderFont.ttf);
 }
 
 .container-fluid {
-  padding-left: 0px;
-  padding-right: 0px;
+ padding-left: 0px;
+ padding-right: 0px;
 }
 
 header {
-  width: 100%;
+ width: 100%;
 }
 
 #main-heading {
-  padding-top: 10px;
-  text-align: center;
-  font-family: "tinderFont";
-  background-color: #003366;
-  text-shadow:
-    -1px -1px 0 #ea474c,
-    1px -1px 0 #ea474c,
-    -1px 1px 0 #ea474c,
-    1px 1px 0 #ea474c;
-  color: #003366;
-  border-bottom: 4px solid lightgray;
-  margin-top: 0px;
-  margin-right: 0px;
-  margin-left: 0px;
-  margin-bottom: 0px;
-  min-width: 100%;
-  height: 1.5em;
+ padding-top: 10px;
+ text-align: center;
+ font-family: "tinderFont";
+ background-color: #003366 ;
+ text-shadow:
+   -1px -1px 0 #ea474c ,
+   1px -1px 0 #ea474c ,
+   -1px 1px 0 #ea474c ,
+   1px 1px 0 #ea474c ;
+ color: #003366 ;
+ border-bottom: 4px solid lightgray;
+ margin-top: 0px;
+ margin-right: 0px;
+ margin-left: 0px;
+ margin-bottom: 0px;
+ min-width: 100%;
+ height: 1.5em;
 }
 
 #mood-text {
-  color: #ea474c;
-  font-family: "tinderFont";
+ color: #ea474c ;
+ font-family: "tinderFont";
 }
 
 #mood-text2 {
-  text-shadow:
-    -1px -1px 0 #ea474c,
-    1px -1px 0 #ea474c,
-    -1px 1px 0 #ea474c,
-    1px 1px 0 #ea474c;
-  color: #003366;
-  font-family: "tinderFont";
+ text-shadow:
+   -1px -1px 0 #ea474c ,
+   1px -1px 0 #ea474c ,
+   -1px 1px 0 #ea474c ,
+   1px 1px 0 #ea474c ;
+ color: #003366 ;
+ font-family: "tinderFont";
 }
 
 #get-started {
-  text-decoration: none;
-  cursor: pointer;
+ text-decoration: none;
+ cursor: pointer;
+ margin-top: 10px;
+ border-radius: 10px;
+ font-family: "tinderFont";
+ position: absolute;
+ top: 40px;
+ right: 60%;
+ font-size: 36px;
 }
 
 #get-started-text {
-  text-shadow:
-    -1px -1px 0 #ea474c,
-    1px -1px 0 #ea474c,
-    -1px 1px 0 #ea474c,
-    1px 1px 0 #ea474c;
-  color: black;
+ text-shadow:
+   -1px -1px 0 #ea474c ,
+   1px -1px 0 #ea474c ,
+   -1px 1px 0 #ea474c ,
+   1px 1px 0 #ea474c ;
+ color: black;
 }
 
 #home-screen-submit {
-    position: absolute;
-    right: -5px;
-    bottom: 0px;s
+   position: absolute;
+   right: -5px;
+   bottom: 0px;s
 }
 
 #location-form {
-  text-align: center;
-  position: absolute;
-  left: 500px;
-  top: 300px;
-  width: 500px;
+ text-align: center;
+ position: absolute;
+ left: 500px;
+ top: 300px;
+ width: 500px;
 }
 
 .cuisine-type {
-  text-shadow:
-    -1px -1px 0 black,
-    1px -1px 0 black,
-    -1px 1px 0 black,
-    1px 1px 0 black;
+ text-shadow:
+   -1px -1px 0 black,
+   1px -1px 0 black,
+   -1px 1px 0 black,
+   1px 1px 0 black;
+ margin-top : 10px;
+ color: white;
+ position: absolute;
+ right: 35%;
+ font-family: "tinderFont";
 }
 
 #main-section {
-  overflow: auto;
-  padding-top: 0px;
-  background-image: url("../images/backgroundImageMain.jpg");
-  background-size: cover; /* Changed */
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 800px; /*-- Need to change in order to eliminate vertical scroll */
-  width: 100%;
+ overflow: auto;
+ padding-top: 0px;
+ background-image: url("../images/backgroundImageMain.jpg");
+ background-size: cover; /* Changed */
+ background-position: center;
+ background-repeat: no-repeat;
+ height: 800px; /*-- Need to change in order to eliminate vertical scroll */
+ width: 100%;
 }
 
 #opening-greeting {
-  font-size: 60px;
-  color: white;
-  margin-top: 50px;
-  text-shadow:
-    -1px -1px 0 black,
-    1px -1px 0 black,
-    -1px 1px 0 black,
-    1px 1px 0 black;
-  text-align: center;
+ font-size: 60px;
+ color: white;
+ margin-top: 50px;
+ text-shadow:
+   -1px -1px 0 black,
+   1px -1px 0 black,
+   -1px 1px 0 black,
+   1px 1px 0 black;
+ text-align: center;
 }
 
 /*#user-location {
-  width: 80%;
+ width: 80%;
 }*/
 
 #food-list:hover {
-  color: #C40000;
+ color: #C40000 ;
+ font-family: "tinderFont";
+}
+
+#dislike-btn {
+  width: 150px;
+  height: 150px;
+}
+
+#like-btn {
+  width: 150px;
+  height: 150px;
+}
+
+#food-images {
+  position: absolute;
+  left: 35%;
+}
+
+#buttons-div {
+  position: absolute;
+  left: 40%;
+  top: 60%;
 }
 
 .img-rounded:hover {
