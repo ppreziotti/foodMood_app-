@@ -3,6 +3,7 @@
 var userLocation;
 var cuisineChosen;
 var businessImage = [];
+var imageCount;
 
 // FUNCTIONS
 // =====================================================================================
@@ -150,9 +151,7 @@ function showPhoto() {
   imageCount = 0;
   var foodImage = $("<img>");
   foodImage.attr("id", "food-img");
-
-  // console.log(businessImage[0]);
-  foodImage.attr("src", "" + businessImage[imageCount] + "");
+  foodImage.attr("src", businessImage[imageCount]);
   foodImage.css({
     'width': '400px',
     'height': '400px'
@@ -164,10 +163,7 @@ function showPhoto() {
   var buttonsDiv = $("<div>");
   buttonsDiv.attr("id", "buttons-div");
 
-  var imageCount = 0;
-  foodImage.attr("src", businessImage[imageCount]); // Or random index value?
-  $("#food-images").append(foodImage);
-
+  imageCount = 0;
   // Creating like & dislike "buttons" as images with Bootstrap img-rounded class
   // **Need to add on-click event listener for both buttons**
   var dislikeButton = $("<img>");
@@ -185,14 +181,21 @@ function showPhoto() {
   $("#main-section").append(buttonsDiv);
 }
 
-// Shows the next image in businessImages array
+// Uses Google Maps Embed API to display directions from the user's current location 
 function nextPhoto() {
   imageCount++;
-  foodImage.attr("src", businessImage[imageCount]);
-  showPhoto();
+  if (imageCount >= businessImage.length) {
+    imageCount = 0;
+  }
+  else {
+    $("#food-images").empty();
+    var foodImage = $("<img>");
+    foodImage.attr("src", businessImage[imageCount]);
+    $("#food-images").append(foodImage);
+  }
 }
 
-// Uses Google Maps Embed API to display directions from the user's current location 
+// Uses Google Maps Embed API to display directions from the user's current location
 // to the desired restaurant
 function getDirections() {
   var apiKey = "AIzaSyDUxezpr4WRRo7HEPE-HgmQ4WYCexWVdQs";
@@ -245,3 +248,7 @@ $(document).on("click", "#like-btn", function() {
 
 // If the user clicks the dislike button, execute the nextPhoto function
 $(document).on("click", "#dislike-btn", nextPhoto);
+
+// // If the user clicks the dislike button, execute the nextPhoto function
+// $(document).on("click", "#dislike-btn", nextPhoto);
+$(document).on("click","#dislike-btn", nextPhoto);
