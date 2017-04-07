@@ -2,6 +2,19 @@ var userLocation;
 var cuisineChosen;
 var businessImage = [];
 
+// The below function dump the next photo into businessImage div whenever a user hit dislike button - the function gets the photos from businessImage array.
+function nextPhoto() {
+  $("#dislike-btn").on("click", function() {
+      var index = 1;
+      if (index < businessImage.length) {
+        index = 0;
+      }
+      else { 
+        $("#foodImages").append(businessImage[index]); 
+      }
+  })// end of on-"click"
+}// end of nextPhoto function.
+
 function homeScreen() {
   var openingGreeting = $("<div>");
   openingGreeting.html("<h1 id ='openingGreeting'> What\'re you in the <span id='moodText2'> mood </span> for?</h1>");
@@ -11,7 +24,7 @@ function homeScreen() {
 
   var homeScreenSubmit = $("<button>");
   homeScreenSubmit.attr("class", "btn btn-default");
-  homeScreenSubmit.attr("type", "button");
+  homeScreenSubmit.attr("type", "submit");
   homeScreenSubmit.attr("id", "homeScreenSubmit");
   homeScreenSubmit.css({
     position: "absolute",
