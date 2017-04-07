@@ -1,20 +1,14 @@
 var userLocation;
 var cuisineChosen;
+var imageCount;
+var timeId;
 var businessImage = [];
 
 function homeScreen() {
   var openingGreeting = $("<div>");
   openingGreeting.html("<h1 id ='openingGreeting'> What\'re you in the <span id='moodText2'> mood </span> for?</h1>");
-
   var locationForm = $("<form>");
   locationForm.attr("id", "locationForm");
-  locationForm.css({
-    textAlign: "center",
-    position: "absolute",
-    left: "500px",
-    top: "400px",
-    width: "500px"
-  });
   locationForm.html("<input class='form-control' id='userLocation' type='text' name='userLocation' placeholder='zipcode or city'/>");
 
   var homeScreenSubmit = $("<button>");
@@ -102,6 +96,8 @@ $(document).on("click", "#getStarted", function(event) {
   cuisineChosen = $('input[name=optradio]:checked').val();
   console.log(cuisineChosen);
   yelpSearch();
+  timeId = setTimeout(showPhoto, 1000);
+
 });
 
 
@@ -157,14 +153,14 @@ function yelpSearch() {
   }).done(function(data) {
       console.log(data);
       var businessId = [];
-      for ( i = 0; i < 20; i++) {
+      for (var i = 0; i < 20; i++) {
         var result = data.businesses[i].id;
         var result2 = result.replace( /\-\d+$/, "");
         businessId.push(result2);
         console.log(businessId);
     }
 
-    for( i = 0; i < businessId.length; i++){
+    for (i = 0; i < businessId.length; i++){
       var parameters2 = [];
         parameters2.push(['oauth_consumer_key', auth.consumerKey]);
         parameters2.push(['oauth_consumer_secret', auth.consumerSecret]);
@@ -197,6 +193,7 @@ function yelpSearch() {
           businessImage.push(result2);
           console.log(businessImage);
 
+
         }).fail(function(jqXHR, textStatus, errorThrown) {
           console.log(errorThrown);
           console.log("text status: + " + textStatus);
@@ -227,5 +224,55 @@ function getDirections() {
    mapDisplay.attr("frameborder", "0");
    mapDisplay.attr("style", "border:0");
    $("#mainSection").append(mapDisplay);
-
 }
+
+// Displaying photos --- needs to be added to appropriate location ==================
+
+function showPhoto() {
+  $("#mainSection").empty();
+
+  var foodImagesDiv = $("<div>");
+  foodImagesDiv.attr("id", "food-images");
+  $("#mainSection").append(foodImagesDiv);
+
+  imageCount = 0;
+  var foodImage = $("<img>");
+  foodImage.attr("id", "food-img");
+  // console.log(businessImage[0]);
+  foodImage.attr("src", "" + businessImage[imageCount] + "");
+  foodImage.css({
+    'width': '400px',
+    'height': '400px'
+  });
+  $("#food-images").append(foodImage);
+
+  // Creating like/dislike "buttons" as images with Bootstrap img-rounded class
+  // Need to add on-click event listener and cursor hover event
+  var buttonsDiv = $("<div>");
+  buttonsDiv.attr("id", "buttons-div");
+
+  var dislikeButton = $("<img>");
+  dislikeButton.addClass("img-rounded");
+  dislikeButton.attr("id", "dislike-btn");
+  dislikeButton.attr("src", "assets/images/dislike-button.png");
+  buttonsDiv.append(dislikeButton);
+
+  var likeButton = $("<img>");
+  likeButton.addClass("img-rounded");
+  likeButton.attr("id", "like-btn");
+  likeButton.attr("src", "assets/images/love-button.png");
+  buttonsDiv.append(likeButton);
+  $("#mainSection").append(buttonsDiv);
+}
+
+function nextPhoto() {
+  // show next image in businessImages array
+  imageCount++;
+  foodImage.attr("src", businessImage[imageCount]);
+}
+
+$(document).on("click", "#like-btn", function() {
+  // run function for showing yelp restaurant info and google maps directions
+});
+
+$(document).on("click", "#dislike-btn", nextPhoto);
