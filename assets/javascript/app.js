@@ -185,6 +185,30 @@ function showPhoto() {
   $("#main-section").append(buttonsDiv);
 }
 
+// Shows the next image in businessImages array
+function nextPhoto() {
+  imageCount++;
+  foodImage.attr("src", businessImage[imageCount]);
+  showPhoto();
+}
+
+// Uses Google Maps Embed API to display directions from the user's current location 
+// to the desired restaurant
+function getDirections() {
+  var apiKey = "AIzaSyDUxezpr4WRRo7HEPE-HgmQ4WYCexWVdQs";
+  var origin = userLocation;
+  var destination = "27510"; // To be replaced with actual restaurant address //
+  var queryURL = "https://www.google.com/maps/embed/v1/directions?key=" + apiKey + 
+    "&origin=" + origin + "&destination=" + destination;
+  var mapDisplay = $("<iframe>");
+  mapDisplay.attr("src", queryURL);
+  mapDisplay.attr("width", "600");
+  mapDisplay.attr("height", "450");
+  mapDisplay.attr("frameborder", "0");
+  mapDisplay.attr("style", "border:0");
+  $("#main-section").append(mapDisplay);
+}
+
 // MAIN PROCESS
 // ==========================================================================================
 
