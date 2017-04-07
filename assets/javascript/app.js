@@ -24,7 +24,6 @@ function homeScreen() {
   $("#main-section").append(locationForm);
   $("#main-section").append(openingGreeting);
   $("#location-form").append(homeScreenSubmit);
-
 }
 
 // Screen opened after the user inputs their location, lists cuisines types for the user to 
@@ -32,13 +31,6 @@ function homeScreen() {
 function openScreen() {
   var cuisineType = $("<div class='cuisine-type'>");
   cuisineType.html("<h1 class='cuisine-type'> What type of cuisine? </h1>");
-  cuisineType.css({
-    marginTop : "10px",
-    color: "white",
-    position: "absolute",
-    right: "35%",
-    fontFamily: "tinderFont"
-  });
   $("#main-section").append(cuisineType);
 
   var foodTypes = ["Italian", "Chinese", "Mediterranean", "Mexican", "Surprise Me"];
@@ -52,26 +44,13 @@ function openScreen() {
     var foodList = $("<label>");
     foodList.attr("class", "food-list");
     foodList.html("<input value=" + foodTypes[i] + " " + "type='radio' name='optradio' class='food-value'>" + foodTypes[i]);
-    foodList.css({
-      fontFamily: "tinderFont"
-    });
     $("#food-div"+ counter).append(foodList);
     counter++;
   }
 
-
   var getStarted = $("<p>");
   getStarted.attr("id", "get-started");
   getStarted.html("<a id='get-started-text'>Submit</a>");
-  getStarted.css({
-    marginTop: "10px",
-    borderRadius: "10px",
-    fontFamily: "tinderFont",
-    position: "absolute",
-    top: "40px",
-    right: "60%",
-    fontSize: "36px"
-  });
   $("#food-div" + 5).append(getStarted);
 }
 
@@ -251,7 +230,7 @@ $(document).on("click", "#home-screen-submit", function(event) {
 });
 
 // After the user chooses a cuisine type and clicks the get started button, the yelpSearch
-// function is executed
+// function is executed without reloading the page
 $(document).on("click", "#get-started", function(event) {
   event.preventDefault();
 

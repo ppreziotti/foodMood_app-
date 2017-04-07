@@ -50,6 +50,13 @@ header {
 #get-started {
   text-decoration: none;
   cursor: pointer;
+  margin-top: 10px;
+  border-radius: 10px;
+  font-family: "tinderFont";
+  position: absolute;
+  top: 40px;
+  right: 60%;
+  font-size: 36px;
 }
 
 #get-started-text {
@@ -81,6 +88,11 @@ header {
     1px -1px 0 black,
     -1px 1px 0 black,
     1px 1px 0 black;
+  margin-top : 10px;
+  color: white;
+  position: absolute;
+  right: 35%;
+  font-family: "tinderFont";
 }
 
 #main-section {
@@ -112,6 +124,7 @@ header {
 
 #food-list:hover {
   color: #C40000;
+  font-family: "tinderFont";
 }
 
 .img-rounded:hover {
