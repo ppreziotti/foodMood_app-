@@ -2,7 +2,11 @@
 // =====================================================================================
 var userLocation;
 var cuisineChosen;
-var businessImage = [];
+var businessInfo = {
+  businessId: [],
+  businessImages: [],
+  businessAddress: []
+};
 var imageCount;
 
 // FUNCTIONS
@@ -51,7 +55,7 @@ function openScreen() {
 }
 
 // Pulls photos from the Yelp API based on the user's location and desired cuisine type
-// The photos are then stored in the businessImages array
+// The photos are then stored in the businessInfos array
 function yelpSearch() {
   var queryURL = 'https://api.yelp.com/v2/search';
   var auth= {
@@ -90,17 +94,19 @@ function yelpSearch() {
     'url' : message.action,
     'data' : parameterMap,
     'dataType' : 'jsonp',
+    // 'timeout': '1000',
     // 'jsonpCallback' : 'cb',
     'cache': true
   }).done(function(data) {
       console.log(data);
       var businessId = [];
-      for (var i = 0; i < 20; i++) {
+      for (var i = 0; i < 10; i++) {
         var result = data.businesses[i].id;
-        var result2 = result.replace( /\-\d+$/, "");
-        businessId.push(result2);
+        // var result2 = result.replace( /\-\d+$/, "");
+        businessId.push(result);
         console.log(businessId);
     }
+    var counter = 1;
     for (i = 0; i < businessId.length; i++){
       var parameters2 = [];
         parameters2.push(['oauth_consumer_key', auth.consumerKey]);
@@ -122,14 +128,20 @@ function yelpSearch() {
           'url': message2.action,
           'data': parameterMap2,
           'dataType' : 'jsonp',
+          'timeout': '1000',
           // 'jsonpCallback' : 'cb',
           'cache': true
         }).done(function(response) {
           // need to store image value and replace "ms" in jpg to change with "l" or "o"
-          var result = response.image_url;
-          var result2 = result.replace("ms", "l");
-          businessImage.push(result2);
-          console.log(businessImage);
+          var businessId = response.id;
+          var customerImage = response.image_url;
+          var customerImageL = customerImage.replace(/[^\/]+$/,'l.jpg');
+          var yelpAddress = response.location.address;
+          businessInfo.businessId.push(businessId);
+          businessInfo.businessImages.push(customerImageL);
+          businessInfo.businessAddress.push(yelpAddress);
+          console.log (businessInfo);
+          counter++;
         }).fail(function(jqXHR, textStatus, errorThrown) {
           console.log(errorThrown);
           console.log("text status: + " + textStatus);
@@ -139,8 +151,12 @@ function yelpSearch() {
       console.log('error[' + errorThrown + '], status[' + textStatus + '], jqXHR[' + JSON.stringify(jqXHR) + ']');
   });
 }
+<<<<<<< HEAD
 
 // Displays a photo of a restuarant's food from the businessImages array along with like &
+=======
+// Displays a photo of a restuarant's food from the businessInfos array along with like &
+>>>>>>> c937c63108a77286f461c9adf28ef3b0915fd572
 // dislike buttons
 function showPhoto() {
   $("#main-section").empty();
@@ -152,12 +168,13 @@ function showPhoto() {
   imageCount = 0;
   var foodImage = $("<img>");
   foodImage.attr("id", "food-img");
-  foodImage.attr("src", businessImage[imageCount]);
+  foodImage.attr("src", businessInfo.businessImages[imageCount]);
   foodImage.css({
     'width': '400px',
     'height': '400px'
   });
   $("#food-images").append(foodImage);
+  console.log(businessInfo.businessAddress[imageCount]);
 
   // Creating like/dislike "buttons" as images with Bootstrap img-rounded class
   // Need to add on-click event listener and cursor hover event
@@ -185,15 +202,24 @@ function showPhoto() {
 // Uses Google Maps Embed API to display directions from the user's current location 
 function nextPhoto() {
   imageCount++;
-  if (imageCount >= businessImage.length) {
+  if (imageCount >= businessInfo.businessImages.length) {
     imageCount = 0;
   }
   else {
     $("#food-images").empty();
     var foodImage = $("<img>");
-    foodImage.attr("src", businessImage[imageCount]);
+    foodImage.attr("src", businessInfo.businessImages[imageCount]);
     $("#food-images").append(foodImage);
+    console.log(businessInfo.businessAddress[imageCount]);
   }
+}
+
+function lovePhoto() {
+  $("#like-btn").hide();
+  $("#dislike-btn").hide();
+  $("#food-images").hide();
+  console.log('test');
+  getDirections();
 }
 
 // Uses Google Maps Embed API to display directions from the user's current location
@@ -201,10 +227,18 @@ function nextPhoto() {
 function getDirections() {
   var apiKey = "AIzaSyDUxezpr4WRRo7HEPE-HgmQ4WYCexWVdQs";
   var origin = userLocation;
+<<<<<<< HEAD
   var destination = "27510"; // To be replaced with actual restaurant address //
   var queryURL = "https://www.google.com/maps/embed/v1/directions?key=" + apiKey + 
+=======
+  var destination = businessInfo.businessAddress[imageCount];
+  // To be replaced with actual restaurant address //
+  var queryURL = "https://www.google.com/maps/embed/v1/directions?key=" + apiKey +
+>>>>>>> c937c63108a77286f461c9adf28ef3b0915fd572
     "&origin=" + origin + "&destination=" + destination;
   var mapDisplay = $("<iframe>");
+  // added Id to allow for positioning of iframe
+  mapDisplay.attr("id", "googleMaps");
   mapDisplay.attr("src", queryURL);
   mapDisplay.attr("width", "600");
   mapDisplay.attr("height", "450");
@@ -233,19 +267,21 @@ $(document).on("click", "#home-screen-submit", function(event) {
 
 // After the user chooses a cuisine type and clicks the get started button, the yelpSearch
 // function is executed without reloading the page
-$(document).on("click", "#get-started", function(event) {
+$(document).one("click", "#get-started", function(event) {
   event.preventDefault();
 
   cuisineChosen = $('input[name=optradio]:checked').val();
   console.log(cuisineChosen);
   yelpSearch();
-  timeId = setTimeout(showPhoto, 1000);
+  $(document).ajaxStop(function() {
+    showPhoto();
+  });
+  // timeId = setTimeout(showPhoto, 1500);
 });
 
 // If the user clicks the like button execute the ??? function
-$(document).on("click", "#like-btn", function() {
+$(document).on("click", "#like-btn", lovePhoto);
   // Execute function for showing yelp restaurant info and google maps directions
-});
 
 // If the user clicks the dislike button, execute the nextPhoto function
 $(document).on("click", "#dislike-btn", nextPhoto);
