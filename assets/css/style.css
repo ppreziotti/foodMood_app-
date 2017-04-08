@@ -60,12 +60,12 @@ header {
 }
 
 #get-started-text {
- text-shadow:
+ /*text-shadow:
    -1px -1px 0 #ea474c ,
    1px -1px 0 #ea474c ,
    -1px 1px 0 #ea474c ,
-   1px 1px 0 #ea474c ;
- color: black;
+   1px 1px 0 #ea474c ;*/
+ color: #ea474c;
 }
 
 #home-screen-submit {
@@ -98,7 +98,9 @@ header {
 #main-section {
  overflow: auto;
  padding-top: 0px;
- background-image: url("../images/backgroundImageMain.jpg");
+ background-image: linear-gradient(rgba(255,255,255,0.05),rgba(255,255,255,0.05)), url("../images/backgroundImage3.jpg");
+background-size: cover;
+ /*background-image: url("../images/backgroundImageMain.jpg");
  background-size: cover; /* Changed */
  background-position: center;
  background-repeat: no-repeat;
@@ -118,9 +120,6 @@ header {
  text-align: center;
 }
 
-/*#user-location {
- width: 80%;
-}*/
 
 #food-list:hover {
  color: #C40000 ;
@@ -128,24 +127,50 @@ header {
 }
 
 #dislike-btn {
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
+  background-color: white;
+  margin-right: 125px;
 }
 
 #like-btn {
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
+  background-color: white;
 }
 
 #food-images {
+  margin-top: 50px;
   position: absolute;
-  left: 35%;
+  width: 650px;
+  height: 500px;
+  left: 30%;
+  linear-gradient: (rgba(255,255,255,0.05),rgba(255,255,255,0.05));
+  background-color: white;
+}
+
+#food-img {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  margin-top: 50px;
+  margin-left: 125px;
 }
 
 #buttons-div {
   position: absolute;
-  left: 40%;
-  top: 60%;
+  left: 38%;
+  top: 75%;
+}
+
+#yelp-logo {
+ width: 100px;
+ height: auto;
+ overflow: auto;
+ position: absolute;
+ bottom: 5px;
+ right: 5px;
+ z-index: 1;
 }
 
 .img-rounded:hover {

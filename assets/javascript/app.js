@@ -7,16 +7,16 @@ var businessInfo = {
   businessImages: [],
   businessAddress: []
 };
-var imageCount;
+var imageCount = 0;
 // FUNCTIONS
 // =====================================================================================
 // Opening screen of app - asks user to input their location
 function homeScreen() {
   var openingGreeting = $("<div>");
-  openingGreeting.html("<h1 id ='opening-greeting'> What\'re you in the <span id='moodText2'> mood </span> for?</h1>");
+  openingGreeting.html("<h1 id ='opening-greeting'> What\'re <i>you</i> in the <span id='moodText2'> mood </span> for?</h1>");
   var locationForm = $("<form>");
   locationForm.attr("id", "location-form");
-  locationForm.html("<input class='form-control' id='user-location' type='text' name='user-location' placeholder='zipcode or city'/>");
+  locationForm.html("<input class='form-control' id='user-location' type='text' name='user-location' placeholder='Enter your address to get started!'/>");
   var homeScreenSubmit = $("<button>");
   homeScreenSubmit.attr("class", "btn btn-default");
   homeScreenSubmit.attr("type", "submit");
@@ -91,7 +91,6 @@ function yelpSearch() {
     'data' : parameterMap,
     'dataType' : 'jsonp',
     // 'timeout': '1000',
-    // 'jsonpCallback' : 'cb',
     'cache': true
   }).done(function(data) {
       console.log(data);
@@ -125,18 +124,18 @@ function yelpSearch() {
           'data': parameterMap2,
           'dataType' : 'jsonp',
           'timeout': '1000',
-          // 'jsonpCallback' : 'cb',
           'cache': true
         }).done(function(response) {
           // need to store image value and replace "ms" in jpg to change with "l" or "o"
           var businessId = response.id;
           var customerImage = response.image_url;
-          var customerImageL = customerImage.replace(/[^\/]+$/,'l.jpg');
+          var customerImageL = customerImage.replace(/[^\/]+$/,'o.jpg');
           var yelpAddress = response.location.address;
           businessInfo.businessId.push(businessId);
           businessInfo.businessImages.push(customerImageL);
           businessInfo.businessAddress.push(yelpAddress);
           console.log (businessInfo);
+          console.log(response.menu_provider);
           counter++;
         }).fail(function(jqXHR, textStatus, errorThrown) {
           console.log(errorThrown);
@@ -154,16 +153,25 @@ function showPhoto() {
 
   var foodImagesDiv = $("<div>");
   foodImagesDiv.attr("id", "food-images");
+  // foodImagesDiv.css({
+  //   'marginRight': '60%',
+  //   'position': 'relative',
+  //   'backgroundColor': 'white',
+  //   'width': '650px',
+  //   'height': '500px'
+  // });
   $("#main-section").append(foodImagesDiv);
 
-  imageCount = 0;
   var foodImage = $("<img>");
   foodImage.attr("id", "food-img");
   foodImage.attr("src", businessInfo.businessImages[imageCount]);
-  foodImage.css({
-    'width': '400px',
-    'height': '400px'
-  });
+  // foodImage.css({
+  //   'position': 'relative',
+  //
+  //   'width': '300px',
+  //   'height': '300px',
+  //   'backgroundImage': 'cover'
+  // });
   $("#food-images").append(foodImage);
   console.log(businessInfo.businessAddress[imageCount]);
 
@@ -172,22 +180,32 @@ function showPhoto() {
   var buttonsDiv = $("<div>");
   buttonsDiv.attr("id", "buttons-div");
 
-  imageCount = 0;
   // Creating like & dislike "buttons" as images with Bootstrap img-rounded class
   // **Need to add on-click event listener for both buttons**
   var dislikeButton = $("<img>");
   dislikeButton.addClass("img-rounded");
   dislikeButton.attr("id", "dislike-btn");
 
-  dislikeButton.attr("src", "assets/images/dislike-button.png");
+  dislikeButton.attr("src", "assets/images/dislike-button3.png");
   buttonsDiv.append(dislikeButton);
 
   var likeButton = $("<img>");
   likeButton.addClass("img-rounded");
   likeButton.attr("id", "like-btn");
-  likeButton.attr("src", "assets/images/love-button.png");
+  likeButton.attr("src", "assets/images/like-button2.png");
   buttonsDiv.append(likeButton);
   $("#main-section").append(buttonsDiv);
+
+  // Adding Yelp logo/link to Yelp to image in order to comply with Yelp API display requirements
+ var yelpLink = $("<a>");
+ yelpLink.attr("href", "http://www.yelp.com");
+ yelpLink.attr("target", "_blank");
+ var yelpLogo = $("<img>");
+ yelpLogo.attr("id", "yelp-logo");
+ yelpLogo.attr("src", "assets/images/Yelp_trademark_RGB_outline.png");
+ yelpLogo.attr("alt", "Yelp Logo");
+ yelpLink.append(yelpLogo);
+ $("#food-images").append(yelpLink);
 }
 
 function nextPhoto() {
@@ -196,11 +214,8 @@ function nextPhoto() {
     imageCount = 0;
   }
   else {
-    $("#food-images").empty();
-    var foodImage = $("<img>");
-    foodImage.attr("src", businessInfo.businessImages[imageCount]);
-    $("#food-images").append(foodImage);
-    console.log(businessInfo.businessAddress[imageCount]);
+    showPhoto();
+    console.log(imageCount);
   }
 }
 
@@ -258,7 +273,6 @@ $(document).one("click", "#get-started", function(event) {
   $(document).ajaxStop(function() {
     showPhoto();
   });
-  // timeId = setTimeout(showPhoto, 1500);
 });
 
 // If the user clicks the like button execute the ??? function
