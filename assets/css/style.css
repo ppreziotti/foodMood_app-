@@ -52,19 +52,23 @@ header {
 }
 
 #get-started {
-  text-decoration: none;
   cursor: pointer;
   margin-top: 10px;
   border-radius: 10px;
   font-family: "tinderFont";
   position: absolute;
-  top: 120px;
+  top: 90px;
   right: 60%;
   font-size: 36px;
 }
 
 #get-started-text {
  color: #ea474c;
+ text-decoration: none;
+}
+
+#get-started-text:hover {
+  color: blue;
 }
 
 #home-screen-submit {
@@ -87,10 +91,11 @@ header {
     1px -1px 0 black,
     -1px 1px 0 black,
     1px 1px 0 black;
-  margin-top : 10px;
+  margin-top : 20px;
+  width: 600px;
   color: white;
   position: absolute;
-  right: 35%;
+  right: 15%;
   font-family: "tinderFont";
 }
 
@@ -128,12 +133,14 @@ header {
   height: 100px;
   background-color: black;
   margin-right: 125px;
+  /*box-shadow: 10px 10px 5px black;*/
 }
 
 #like-btn {
   width: 100px;
   height: 100px;
   background-color: black;
+  /*box-shadow: 10px 10px 5px black;*/
 }
 
 #food-images {
@@ -141,9 +148,9 @@ header {
   position: absolute;
   width: 650px;
   height: 500px;
-  left: 30%;
+  left: 28%;
   linear-gradient: (rgba(255,255,255,0.20),rgba(255,255,255,0.20));
-  background-color: black;
+  /*background: url("../images/main-section-background.png");*/
 }
 
 #food-img {
@@ -152,6 +159,8 @@ header {
   height: 400px;
   margin-top: 50px;
   margin-left: 125px;
+  /*border: 5px solid black;*/
+  box-shadow: 10px 10px 5px black;
 }
 
 #yelp-logo {
@@ -162,11 +171,12 @@ header {
   bottom: 40px;
   right: 120px;
   z-index: 1;
+  /*background-color: #d32323; -- Yelp's recommended background color */
 }
 
 #buttons-div {
   position: absolute;
-  left: 38%;
+  left: 39%;
   top: 75%;
 }
 
@@ -187,4 +197,14 @@ header {
 #google-maps {
   margin-top: 50px;
   margin-left: 75px;
+}
+
+#need-cuisine-div {
+  font-family: sans-serif, arial;
+  color: red;
+  position: absolute;
+  left: 150px;
+  bottom: 10px;
+  font-size: 18px;
+  width: 300px;
 }
