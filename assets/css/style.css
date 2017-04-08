@@ -48,15 +48,15 @@ header {
 }
 
 #get-started {
- text-decoration: none;
- cursor: pointer;
- margin-top: 10px;
- border-radius: 10px;
- font-family: "tinderFont";
- position: absolute;
- top: 40px;
- right: 60%;
- font-size: 36px;
+  text-decoration: none;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 10px;
+  font-family: "tinderFont";
+  position: absolute;
+  top: 40px;
+  right: 60%;
+  font-size: 36px;
 }
 
 #get-started-text {
@@ -83,16 +83,16 @@ header {
 }
 
 .cuisine-type {
- text-shadow:
-   -1px -1px 0 black,
-   1px -1px 0 black,
-   -1px 1px 0 black,
-   1px 1px 0 black;
- margin-top : 10px;
- color: white;
- position: absolute;
- right: 35%;
- font-family: "tinderFont";
+  text-shadow:
+    -1px -1px 0 black,
+    1px -1px 0 black,
+    -1px 1px 0 black,
+    1px 1px 0 black;
+  margin-top : 10px;
+  color: white;
+  position: absolute;
+  right: 35%;
+  font-family: "tinderFont";
 }
 
 #main-section {
@@ -123,8 +123,8 @@ header {
 }*/
 
 #food-list:hover {
- color: #C40000 ;
- font-family: "tinderFont";
+  color: #C40000;
+  font-family: "tinderFont";
 }
 
 #dislike-btn {
@@ -140,6 +140,20 @@ header {
 #food-images {
   position: absolute;
   left: 35%;
+}
+
+/*#food-img {
+  position: relative;
+}*/
+
+#yelp-logo {
+  width: 100px;
+  height: auto;
+  overflow: auto;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  z-index: 1;
 }
 
 #buttons-div {

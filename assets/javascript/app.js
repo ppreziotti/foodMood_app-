@@ -7,7 +7,8 @@ var businessInfo = {
   businessImages: [],
   businessAddress: []
 };
-var imageCount;
+var imageCount = 0;
+
 // FUNCTIONS
 // =====================================================================================
 // Opening screen of app - asks user to input their location
@@ -26,6 +27,7 @@ function homeScreen() {
   $("#main-section").append(openingGreeting);
   $("#location-form").append(homeScreenSubmit);
 }
+
 // Screen opened after the user inputs their location, lists cuisines types for the user to
 // choose from
 function openScreen() {
@@ -45,11 +47,13 @@ function openScreen() {
     $("#food-div"+ counter).append(foodList);
     counter++;
   }
+
   var getStarted = $("<p>");
   getStarted.attr("id", "get-started");
   getStarted.html("<a id='get-started-text'>Submit</a>");
   $("#food-div" + 5).append(getStarted);
 }
+
 // Pulls photos from the Yelp API based on the user's location and desired cuisine type
 // The photos are then stored in the businessInfos array
 function yelpSearch() {
@@ -147,7 +151,8 @@ function yelpSearch() {
       console.log('error[' + errorThrown + '], status[' + textStatus + '], jqXHR[' + JSON.stringify(jqXHR) + ']');
   });
 }
-// Displays a photo of a restuarant's food from the businessInfos array along with like &
+
+// Displays a photo of a restuarant's food from the businessImages array along with like &
 // dislike buttons
 function showPhoto() {
   $("#main-section").empty();
@@ -156,7 +161,6 @@ function showPhoto() {
   foodImagesDiv.attr("id", "food-images");
   $("#main-section").append(foodImagesDiv);
 
-  imageCount = 0;
   var foodImage = $("<img>");
   foodImage.attr("id", "food-img");
   foodImage.attr("src", businessInfo.businessImages[imageCount]);
@@ -167,12 +171,22 @@ function showPhoto() {
   $("#food-images").append(foodImage);
   console.log(businessInfo.businessAddress[imageCount]);
 
+  // Adding Yelp logo/link to Yelp to image in order to comply with Yelp API display requirements
+  var yelpLink = $("<a>");
+  yelpLink.attr("href", "http://www.yelp.com");
+  yelpLink.attr("target", "_blank");
+  var yelpLogo = $("<img>");
+  yelpLogo.attr("id", "yelp-logo");
+  yelpLogo.attr("src", "assets/images/Yelp_trademark_RGB_outline.png");
+  yelpLogo.attr("alt", "Yelp Logo");
+  yelpLink.append(yelpLogo);
+  $("#food-images").append(yelpLink);
+
   // Creating like/dislike "buttons" as images with Bootstrap img-rounded class
   // Need to add on-click event listener and cursor hover event
   var buttonsDiv = $("<div>");
   buttonsDiv.attr("id", "buttons-div");
 
-  imageCount = 0;
   // Creating like & dislike "buttons" as images with Bootstrap img-rounded class
   // **Need to add on-click event listener for both buttons**
   var dislikeButton = $("<img>");
@@ -189,18 +203,14 @@ function showPhoto() {
   buttonsDiv.append(likeButton);
   $("#main-section").append(buttonsDiv);
 }
-
+ 
 function nextPhoto() {
   imageCount++;
   if (imageCount >= businessInfo.businessImages.length) {
     imageCount = 0;
   }
   else {
-    $("#food-images").empty();
-    var foodImage = $("<img>");
-    foodImage.attr("src", businessInfo.businessImages[imageCount]);
-    $("#food-images").append(foodImage);
-    console.log(businessInfo.businessAddress[imageCount]);
+    showPhoto();
   }
 }
 
@@ -216,9 +226,8 @@ function lovePhoto() {
 // to the desired restaurant
 function getDirections() {
   var apiKey = "AIzaSyDUxezpr4WRRo7HEPE-HgmQ4WYCexWVdQs";
-  var origin = userLocation;
+  var origin = userLocation; 
   var destination = businessInfo.businessAddress[imageCount];
-  // To be replaced with actual restaurant address //
   var queryURL = "https://www.google.com/maps/embed/v1/directions?key=" + apiKey +
     "&origin=" + origin + "&destination=" + destination;
   var mapDisplay = $("<iframe>");
@@ -234,8 +243,10 @@ function getDirections() {
 
 // MAIN PROCESS
 // ==========================================================================================
+
 // Open the home screen immediately
 homeScreen();
+
 // Click event handler for the home-screen-submit button, assigns the user's location and
 // desired cuisine type to variables to be used in the yelpSearch function, then executes
 // the openScreen function
@@ -247,6 +258,7 @@ $(document).on("click", "#home-screen-submit", function(event) {
   $("#main-section").empty();
   openScreen();
 });
+
 // After the user chooses a cuisine type and clicks the get started button, the yelpSearch
 // function is executed without reloading the page
 $(document).one("click", "#get-started", function(event) {
@@ -265,7 +277,9 @@ $(document).one("click", "#get-started", function(event) {
 $(document).on("click", "#like-btn", lovePhoto);
   // Execute function for showing yelp restaurant info and google maps directions
 
+// If the user clicks the dislike button, execute the nextPhoto function
+$(document).on("click", "#dislike-btn", nextPhoto);
+
 // // If the user clicks the dislike button, execute the nextPhoto function
 // $(document).on("click", "#dislike-btn", nextPhoto);
-
 $(document).on("click","#dislike-btn", nextPhoto);
