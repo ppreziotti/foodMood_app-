@@ -3,9 +3,11 @@
 var userLocation;
 var cuisineChosen;
 var businessInfo = {
-  businessId: [],
+  businessName: [],
   businessImages: [],
-  businessAddress: []
+  businessAddress: [],
+  businessRating: [],
+  businessReviewCount: [],
 };
 var imageCount = 0;
 // FUNCTIONS
@@ -97,15 +99,15 @@ function yelpSearch() {
     'cache': true
   }).done(function(data) {
       console.log(data);
-      var businessId = [];
+      var businessName = [];
       for (var i = 0; i < 10; i++) {
         var result = data.businesses[i].id;
         // var result2 = result.replace( /\-\d+$/, "");
-        businessId.push(result);
-        console.log(businessId);
+        businessName.push(result);
+        console.log(businessName);
     }
     var counter = 1;
-    for (i = 0; i < businessId.length; i++){
+    for (i = 0; i < businessName.length; i++){
       var parameters2 = [];
         parameters2.push(['oauth_consumer_key', auth.consumerKey]);
         parameters2.push(['oauth_consumer_secret', auth.consumerSecret]);
@@ -113,7 +115,7 @@ function yelpSearch() {
         parameters2.push(['oauth_signature_method', 'HMAC-SHA1']);
         parameters2.push(['callback', 'cb']);
       var message2 = {
-        'action': 'https://api.yelp.com/v2/business/' + businessId[i],
+        'action': 'https://api.yelp.com/v2/business/' + businessName[i],
         'method': 'GET',
         'parameters': parameters2
       };
@@ -130,14 +132,18 @@ function yelpSearch() {
           'cache': true
         }).done(function(response) {
           // need to store image value and replace "ms" in jpg to change with "l" or "o"
-          var businessId = response.id;
+          var businessName = response.name;
           var customerImage = response.image_url;
           var customerImageL = customerImage.replace(/[^\/]+$/,'o.jpg');
           var yelpAddress = response.location.address;
-          businessInfo.businessId.push(businessId);
+          var businessRating = response.rating_img_url;
+          var businessReviewCount = response.review_count;
+          businessInfo.businessName.push(businessName);
           businessInfo.businessImages.push(customerImageL);
           businessInfo.businessAddress.push(yelpAddress);
-          console.log (businessInfo);
+          businessInfo.businessRating.push(businessRating);
+          businessInfo.businessReviewCount.push(businessReviewCount);
+          console.log(businessInfo);
           console.log(response.menu_provider);
           counter++;
         }).fail(function(jqXHR, textStatus, errorThrown) {

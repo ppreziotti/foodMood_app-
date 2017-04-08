@@ -158,6 +158,7 @@ header {
   bottom: 5px;
   right: 5px;
   z-index: 1;
+  /*background-color: #d32323; -- Yelp's recommended background color */
 }
 
 #buttons-div {
