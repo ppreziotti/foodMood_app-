@@ -23,6 +23,7 @@ function homeScreen() {
   $("#main-section").append(openingGreeting);
   $("#location-form").append(homeScreenSubmit);
 }
+
 // Screen opened after the user inputs their location, lists cuisines types for the user to
 // choose from
 function openScreen() {
