@@ -210,7 +210,7 @@ function showPhoto() {
   likeButton.attr("src", "assets/images/like-button2.png");
   buttonsDiv.append(likeButton);
   $("#main-section").append(buttonsDiv);
-  
+
 }
 
 function nextPhoto() {
@@ -235,6 +235,9 @@ function lovePhoto() {
 // Uses Google Maps Embed API to display directions from the user's current location
 // to the desired restaurant
 function getDirections() {
+  var lovePhotoDiv = $("<div>");
+  lovePhotoDiv.attr("id", "love-photo");
+
   var apiKey = "AIzaSyDUxezpr4WRRo7HEPE-HgmQ4WYCexWVdQs";
   var origin = userLocation;
   var destination = businessInfo.businessAddress[imageCount];
@@ -242,13 +245,15 @@ function getDirections() {
     "&origin=" + origin + "&destination=" + destination;
   var mapDisplay = $("<iframe>");
   // added Id to allow for positioning of iframe
-  mapDisplay.attr("id", "googleMaps");
+  mapDisplay.attr("id", "google-maps");
   mapDisplay.attr("src", queryURL);
-  mapDisplay.attr("width", "600");
-  mapDisplay.attr("height", "450");
+  mapDisplay.attr("width", "500");
+  mapDisplay.attr("height", "400");
   mapDisplay.attr("frameborder", "0");
   mapDisplay.attr("style", "border:0");
-  $("#main-section").append(mapDisplay);
+  lovePhotoDiv.append(mapDisplay);
+
+  $("#main-section").append(lovePhotoDiv);
 }
 
 // MAIN PROCESS

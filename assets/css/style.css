@@ -179,3 +179,18 @@ header {
 .img-rounded:hover {
   cursor: pointer;
 }
+
+#love-photo {
+  margin-top: 50px;
+  position: absolute;
+  width: 650px;
+  height: 700px;
+  left: 30%;
+  linear-gradient: (rgba(255,255,255,0.05),rgba(255,255,255,0.05));
+  background-color: white;
+}
+
+#google-maps {
+  margin-top: 50px;
+  margin-left: 75px;
+}
