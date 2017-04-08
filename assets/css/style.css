@@ -48,23 +48,18 @@ header {
 }
 
 #get-started {
- text-decoration: none;
- cursor: pointer;
- margin-top: 10px;
- border-radius: 10px;
- font-family: "tinderFont";
- position: absolute;
- top: 40px;
- right: 60%;
- font-size: 36px;
+  text-decoration: none;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 10px;
+  font-family: "tinderFont";
+  position: absolute;
+  top: 40px;
+  right: 60%;
+  font-size: 36px;
 }
 
 #get-started-text {
- /*text-shadow:
-   -1px -1px 0 #ea474c ,
-   1px -1px 0 #ea474c ,
-   -1px 1px 0 #ea474c ,
-   1px 1px 0 #ea474c ;*/
  color: #ea474c;
 }
 
@@ -83,25 +78,23 @@ header {
 }
 
 .cuisine-type {
- text-shadow:
-   -1px -1px 0 black,
-   1px -1px 0 black,
-   -1px 1px 0 black,
-   1px 1px 0 black;
- margin-top : 10px;
- color: white;
- position: absolute;
- right: 35%;
- font-family: "tinderFont";
+  text-shadow:
+    -1px -1px 0 black,
+    1px -1px 0 black,
+    -1px 1px 0 black,
+    1px 1px 0 black;
+  margin-top : 10px;
+  color: white;
+  position: absolute;
+  right: 35%;
+  font-family: "tinderFont";
 }
 
 #main-section {
  overflow: auto;
  padding-top: 0px;
  background-image: linear-gradient(rgba(255,255,255,0.05),rgba(255,255,255,0.05)), url("../images/backgroundImage3.jpg");
-background-size: cover;
- /*background-image: url("../images/backgroundImageMain.jpg");
- background-size: cover; /* Changed */
+ background-size: cover;
  background-position: center;
  background-repeat: no-repeat;
  height: 800px; /*-- Need to change in order to eliminate vertical scroll */
@@ -122,8 +115,8 @@ background-size: cover;
 
 
 #food-list:hover {
- color: #C40000 ;
- font-family: "tinderFont";
+  color: #C40000;
+  font-family: "tinderFont";
 }
 
 #dislike-btn {
@@ -155,6 +148,16 @@ background-size: cover;
   height: 400px;
   margin-top: 50px;
   margin-left: 125px;
+}
+
+#yelp-logo {
+  width: 100px;
+  height: auto;
+  overflow: auto;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  z-index: 1;
 }
 
 #buttons-div {
