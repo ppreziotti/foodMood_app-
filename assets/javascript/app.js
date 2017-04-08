@@ -6,6 +6,9 @@ var businessImage = [];
 
 
 
+
+var imageCount;
+
 // FUNCTIONS
 // =====================================================================================
 // Opening screen of app - asks user to input their location
@@ -148,7 +151,7 @@ function yelpSearch() {
 // Displays a photo of a restuarant's food from the businessImages array along with like &
 // dislike buttons
 function showPhoto() {
-<<<<<<< HEAD
+
  // $("#main-section").empty();
 
  var foodImagesDiv = $("<div>");
@@ -169,9 +172,7 @@ function showPhoto() {
   imageCount = 0;
   var foodImage = $("<img>");
   foodImage.attr("id", "food-img");
-
-  // console.log(businessImage[0]);
-  foodImage.attr("src", "" + businessImage[imageCount] + "");
+  foodImage.attr("src", businessImage[imageCount]);
   foodImage.css({
     'width': '400px',
     'height': '400px'
@@ -187,7 +188,7 @@ function showPhoto() {
   var buttonsDiv = $("<div>");
   buttonsDiv.attr("id", "buttons-div");
 
-<<<<<<< HEAD
+
  var imageCount = 0;
 
   var imageCount = 0;
@@ -196,6 +197,10 @@ function showPhoto() {
   $("#food-images").append(foodImage);
 
  // Creating like & dislike “buttons” as images with Bootstrap img-rounded class
+
+  imageCount = 0;
+  // Creating like & dislike "buttons" as images with Bootstrap img-rounded class
+
   // **Need to add on-click event listener for both buttons**
   var dislikeButton = $("<img>");
   dislikeButton.addClass("img-rounded");
@@ -241,6 +246,37 @@ function nextPhoto() {
   buttonsDiv.append(likeButton);
   $("#main-section").append(buttonsDiv);
 }
+
+function nextPhoto() {
+  imageCount++;
+  if (imageCount >= businessImage.length) {
+    imageCount = 0;
+  }
+  else {
+    $("#food-images").empty();
+    var foodImage = $("<img>");
+    foodImage.attr("src", businessImage[imageCount]);
+    $("#food-images").append(foodImage);
+  }
+}
+
+// Uses Google Maps Embed API to display directions from the user's current location
+// to the desired restaurant
+function getDirections() {
+  var apiKey = "AIzaSyDUxezpr4WRRo7HEPE-HgmQ4WYCexWVdQs";
+  var origin = userLocation;
+  var destination = "27510"; // To be replaced with actual restaurant address //
+  var queryURL = "https://www.google.com/maps/embed/v1/directions?key=" + apiKey +
+    "&origin=" + origin + "&destination=" + destination;
+  var mapDisplay = $("<iframe>");
+  mapDisplay.attr("src", queryURL);
+  mapDisplay.attr("width", "600");
+  mapDisplay.attr("height", "450");
+  mapDisplay.attr("frameborder", "0");
+  mapDisplay.attr("style", "border:0");
+  $("#main-section").append(mapDisplay);
+}
+
 // MAIN PROCESS
 // ==========================================================================================
 // Open the home screen immediately
@@ -266,9 +302,13 @@ $(document).on("click", "#get-started", function(event) {
   yelpSearch();
   timeId = setTimeout(showPhoto, 1000);
 });
+
 // If the user clicks the like button execute the ??? function
 $(document).on("click", "#like-btn", function() {
   // Execute function for showing yelp restaurant info and google maps directions
 });
-// If the user clicks the dislike button, execute the nextPhoto function
-$(document).on("click", "#dislike-btn", nextPhoto);
+
+// // If the user clicks the dislike button, execute the nextPhoto function
+// $(document).on("click", "#dislike-btn", nextPhoto);
+
+$(document).on("click","#dislike-btn", nextPhoto);
