@@ -9,6 +9,8 @@ var businessInfo = {
   businessRating: [],
   businessReviewCount: [],
 };
+var lovePhotoDiv;
+var cuisinePicked = false;
 var imageCount = 0;
 // FUNCTIONS
 // =====================================================================================
@@ -33,9 +35,9 @@ function homeScreen() {
 // choose from
 function openScreen() {
   var cuisineType = $("<div class='cuisine-type'>");
-  cuisineType.html("<h1 class='cuisine-type'> What type of cuisine? </h1>");
+  cuisineType.html("<h1 id='cuisine-header' class='cuisine-type'> What type of cuisine? </h1>");
   $("#main-section").append(cuisineType);
-  var foodTypes = ["Italian", "Chinese", "Mediterranean", "Mexican", "Surprise Me"];
+  var foodTypes = ["Italian", "Chinese", "Mediterranean", "Mexican", "Indian", "Sushi"];
   var counter = 1;
   for(var i = 0; i < foodTypes.length; i++) {
     var foodDiv = $("<div>");
@@ -132,6 +134,7 @@ function yelpSearch() {
           'cache': true
         }).done(function(response) {
           // need to store image value and replace "ms" in jpg to change with "l" or "o"
+          console.log (businessInfo);
           var businessName = response.name;
           var customerImage = response.image_url;
           var customerImageL = customerImage.replace(/[^\/]+$/,'o.jpg');
@@ -163,25 +166,11 @@ function showPhoto() {
 
   var foodImagesDiv = $("<div>");
   foodImagesDiv.attr("id", "food-images");
-  // foodImagesDiv.css({
-  //   'marginRight': '60%',
-  //   'position': 'relative',
-  //   'backgroundColor': 'white',
-  //   'width': '650px',
-  //   'height': '500px'
-  // });
   $("#main-section").append(foodImagesDiv);
 
   var foodImage = $("<img>");
   foodImage.attr("id", "food-img");
   foodImage.attr("src", businessInfo.businessImages[imageCount]);
-  // foodImage.css({
-  //   'position': 'relative',
-  //
-  //   'width': '300px',
-  //   'height': '300px',
-  //   'backgroundImage': 'cover'
-  // });
   $("#food-images").append(foodImage);
   console.log(businessInfo.businessAddress[imageCount]);
 
@@ -234,16 +223,18 @@ function lovePhoto() {
   $("#like-btn").hide();
   $("#dislike-btn").hide();
   $("#food-images").hide();
+
+  lovePhotoDiv = $("<div>");
+  lovePhotoDiv.attr("id", "love-photo");
   console.log('test');
   getDirections();
+
+  $("#main-section").append(lovePhotoDiv);
 }
 
 // Uses Google Maps Embed API to display directions from the user's current location
 // to the desired restaurant
 function getDirections() {
-  var lovePhotoDiv = $("<div>");
-  lovePhotoDiv.attr("id", "love-photo");
-
   var apiKey = "AIzaSyDUxezpr4WRRo7HEPE-HgmQ4WYCexWVdQs";
   var origin = userLocation;
   var destination = businessInfo.businessAddress[imageCount];
@@ -258,8 +249,6 @@ function getDirections() {
   mapDisplay.attr("frameborder", "0");
   mapDisplay.attr("style", "border:0");
   lovePhotoDiv.append(mapDisplay);
-
-  $("#main-section").append(lovePhotoDiv);
 }
 
 // MAIN PROCESS
@@ -282,15 +271,24 @@ $(document).on("click", "#home-screen-submit", function(event) {
 
 // After the user chooses a cuisine type and clicks the get started button, the yelpSearch
 // function is executed without reloading the page
-$(document).one("click", "#get-started", function(event) {
+$(document).on("click", "#get-started", function(event) {
   event.preventDefault();
-
-  cuisineChosen = $('input[name=optradio]:checked').val();
-  console.log(cuisineChosen);
-  yelpSearch();
-  $(document).ajaxStop(function() {
-    showPhoto();
+  if($('input[name=optradio]:checked').length === 0) {
+    var needCuisineDiv = $("<div>");
+    needCuisineDiv.attr("id", "need-cuisine-div");
+    needCuisineDiv.html("Please pick a Cuisine Type!");
+    $("#get-started").append(needCuisineDiv);
+  }
+  else {
+    $("#need-cuisine-div").hide();
+    cuisinePicked = true;
+    cuisineChosen = $('input[name=optradio]:checked').val();
+    console.log(cuisineChosen);
+    yelpSearch();
+    $(document).ajaxStop(function() {
+      showPhoto();
   });
+  }
 });
 
 // If the user clicks the like button execute the ??? function
