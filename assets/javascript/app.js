@@ -18,7 +18,7 @@ var lovePhotoDiv;
 // Opening screen of app - asks user to input their location
 function homeScreen() {
   var openingGreeting = $("<div>");
-  openingGreeting.html("<h1 id ='opening-greeting'> What\'re <i>you</i> in the <span id='moodText2'> mood </span> for?</h1>");
+  openingGreeting.html("<h1 id ='opening-greeting'> What are you in the <span id='mood-text2'><i> mood </i></span> for?</h1>");
   var locationForm = $("<form>");
   locationForm.attr("id", "location-form");
   locationForm.html("<input class='form-control' id='user-location' type='text' name='user-location' placeholder='Enter your address to get started!'/>");
@@ -41,21 +41,25 @@ function openScreen() {
   var foodTypes = ["Italian", "Chinese", "Mediterranean", "Mexican", "Indian", "Sushi"];
   var counter = 1;
   for(var i = 0; i < foodTypes.length; i++) {
-    var foodDiv = $("<div>");
-    foodDiv.attr("class", "radio");
-    foodDiv.attr("id", "food-div" + counter);
-    $(".cuisine-type").append(foodDiv);
+    // var foodDiv = $("<div>");
+    // foodDiv.attr("class", "radio");
+    // foodDiv.attr("id", "food-div" + counter);
+    //
+    // $(".cuisine-type").append(foodDiv);
+
+
     var foodList = $("<label>");
-    foodList.attr("class", "food-list");
+    foodList.attr("class", "food-list radio");
+    foodList.attr("id", "food-list" + counter);
     foodList.html("<input value=" + foodTypes[i] + " " + "type='radio' name='optradio' class='food-value'>" + foodTypes[i]);
-    $("#food-div"+ counter).append(foodList);
+    $("#cuisine-header").append(foodList);
     counter++;
   }
 
   var getStarted = $("<p>");
   getStarted.attr("id", "get-started");
   getStarted.html("<a id='get-started-text'>Submit</a>");
-  $("#food-div" + 5).append(getStarted);
+  $("#cuisine-header").append(getStarted);
 }
 
 // Pulls photos from the Yelp API based on the user's location and desired cuisine type

@@ -57,8 +57,8 @@ header {
   border-radius: 10px;
   font-family: "tinderFont";
   position: absolute;
-  top: 90px;
-  right: 60%;
+  top: 335px;
+  right: 76%;
   font-size: 36px;
 }
 
@@ -68,7 +68,7 @@ header {
 }
 
 #get-started-text:hover {
-  color: blue;
+  color: red;
 }
 
 #home-screen-submit {
@@ -95,8 +95,12 @@ header {
   width: 600px;
   color: white;
   position: absolute;
-  right: 15%;
+  right: 20%;
   font-family: "tinderFont";
+  background-color: black;
+  padding-left: 20px;
+  background-image: linear-gradient(rgba(255,255,255,0.10),rgba(255,255,255,0.1));
+  box-shadow: 10px 10px 5px black;
 }
 
 #main-section {
@@ -122,35 +126,40 @@ header {
  text-align: center;
 }
 
+#cuisine-header {
+  padding-top: 10px;
+}
 
-#food-list:hover {
+.food-list {
+  padding-left: 20px;
+}
+
+.food-list:hover {
   color: #C40000;
   font-family: "tinderFont";
+  cursor: pointer;
 }
 
 #dislike-btn {
   width: 100px;
   height: 100px;
-  background-color: black;
   margin-right: 125px;
-  /*box-shadow: 10px 10px 5px black;*/
 }
 
 #like-btn {
   width: 100px;
   height: 100px;
-  background-color: black;
-  /*box-shadow: 10px 10px 5px black;*/
 }
 
 #food-images {
   margin-top: 50px;
   position: absolute;
   width: 650px;
-  height: 500px;
+  height: 700px;
   left: 28%;
-  linear-gradient: (rgba(255,255,255,0.20),rgba(255,255,255,0.20));
-  /*background: url("../images/main-section-background.png");*/
+  background-image: linear-gradient(rgba(255,255,255,0.10),rgba(255,255,255,0.1));
+  box-shadow: 10px 10px 5px black;
+  background-color: black;
 }
 
 #food-img {
@@ -160,7 +169,7 @@ header {
   margin-top: 50px;
   margin-left: 125px;
   /*border: 5px solid black;*/
-  box-shadow: 10px 10px 5px black;
+  /*box-shadow: 10px 10px 5px black;*/
 }
 
 #yelp-logo {
@@ -168,8 +177,8 @@ header {
   height: auto;
   overflow: auto;
   position: absolute;
-  bottom: 40px;
-  right: 120px;
+  bottom: 240px;
+  right: 115px;
   z-index: 1;
   /*background-color: #d32323; -- Yelp's recommended background color */
 }
@@ -177,17 +186,7 @@ header {
 #buttons-div {
   position: absolute;
   left: 39%;
-  top: 75%;
-}
-
-#yelp-logo {
- width: 100px;
- height: auto;
- /*overflow: auto;*/
- position: absolute;
- bottom: 5px;
- right: 5px;
- z-index: 1;
+  top: 68%;
 }
 
 #yelp-logo-2 {
@@ -204,8 +203,9 @@ header {
   position: absolute;
   width: 650px;
   height: 700px;
-  left: 30%;
-  linear-gradient: (rgba(255,255,255,0.05),rgba(255,255,255,0.05));
+  left: 28%;
+  background-image: linear-gradient(rgba(255,255,255,0.10),rgba(255,255,255,0.1));
+  box-shadow: 10px 10px 5px black;
   background-color: black;
 }
 
