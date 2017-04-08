@@ -260,7 +260,7 @@ $(document).on("click","#dislike-btn", nextPhoto);
 
 function validation(userLocation) {
 
-    var checkChar = userLocation.charCodeAt(0);
+     
 
    if (userLocation.length === 5) {
         for( var i = 0; i < 5; i++) {
