@@ -3,7 +3,7 @@
 var userLocation;
 var cuisineChosen;
 var businessInfo = {
-  businessId: [],
+  businessName: [],
   businessImages: [],
   businessAddress: []
 };
@@ -33,7 +33,7 @@ function openScreen() {
   var cuisineType = $("<div class='cuisine-type'>");
   cuisineType.html("<h1 class='cuisine-type'> What type of cuisine? </h1>");
   $("#main-section").append(cuisineType);
-  var foodTypes = ["Italian", "Chinese", "Mediterranean", "Mexican", "Surprise Me"];
+  var foodTypes = ["Italian", "Chinese", "Mediterranean", "Mexican", "Indian", "Sushi"];
   var counter = 1;
   for(var i = 0; i < foodTypes.length; i++) {
     var foodDiv = $("<div>");
@@ -97,15 +97,15 @@ function yelpSearch() {
     'cache': true
   }).done(function(data) {
       console.log(data);
-      var businessId = [];
+      var businessName = [];
       for (var i = 0; i < 10; i++) {
         var result = data.businesses[i].id;
         // var result2 = result.replace( /\-\d+$/, "");
-        businessId.push(result);
-        console.log(businessId);
+       businessName.push(result);
+        console.log(businessName);
     }
     var counter = 1;
-    for (i = 0; i < businessId.length; i++){
+    for (i = 0; i < businessName.length; i++){
       var parameters2 = [];
         parameters2.push(['oauth_consumer_key', auth.consumerKey]);
         parameters2.push(['oauth_consumer_secret', auth.consumerSecret]);
@@ -113,7 +113,7 @@ function yelpSearch() {
         parameters2.push(['oauth_signature_method', 'HMAC-SHA1']);
         parameters2.push(['callback', 'cb']);
       var message2 = {
-        'action': 'https://api.yelp.com/v2/business/' + businessId[i],
+        'action': 'https://api.yelp.com/v2/business/' + businessName[i],
         'method': 'GET',
         'parameters': parameters2
       };
@@ -130,15 +130,14 @@ function yelpSearch() {
           'cache': true
         }).done(function(response) {
           // need to store image value and replace "ms" in jpg to change with "l" or "o"
-          var businessId = response.id;
+          var businessName = response.id;
           var customerImage = response.image_url;
           var customerImageL = customerImage.replace(/[^\/]+$/,'o.jpg');
           var yelpAddress = response.location.address;
-          businessInfo.businessId.push(businessId);
+          businessInfo.businessName.push(businessName);
           businessInfo.businessImages.push(customerImageL);
           businessInfo.businessAddress.push(yelpAddress);
           console.log (businessInfo);
-          console.log(response.menu_provider);
           counter++;
         }).fail(function(jqXHR, textStatus, errorThrown) {
           console.log(errorThrown);

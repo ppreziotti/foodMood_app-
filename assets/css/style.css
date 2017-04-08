@@ -1,3 +1,7 @@
+* {
+  border-style: border-box;
+}
+
 @font-face {
  font-family: "tinderFont";
  src: url(fonts/tinderFont.ttf);
@@ -54,7 +58,7 @@ header {
   border-radius: 10px;
   font-family: "tinderFont";
   position: absolute;
-  top: 40px;
+  top: 120px;
   right: 60%;
   font-size: 36px;
 }
@@ -122,14 +126,14 @@ header {
 #dislike-btn {
   width: 100px;
   height: 100px;
-  background-color: white;
+  background-color: black;
   margin-right: 125px;
 }
 
 #like-btn {
   width: 100px;
   height: 100px;
-  background-color: white;
+  background-color: black;
 }
 
 #food-images {
@@ -138,8 +142,8 @@ header {
   width: 650px;
   height: 500px;
   left: 30%;
-  linear-gradient: (rgba(255,255,255,0.05),rgba(255,255,255,0.05));
-  background-color: white;
+  linear-gradient: (rgba(255,255,255,0.20),rgba(255,255,255,0.20));
+  background-color: black;
 }
 
 #food-img {
@@ -155,8 +159,8 @@ header {
   height: auto;
   overflow: auto;
   position: absolute;
-  bottom: 5px;
-  right: 5px;
+  bottom: 40px;
+  right: 120px;
   z-index: 1;
 }
 
@@ -164,16 +168,6 @@ header {
   position: absolute;
   left: 38%;
   top: 75%;
-}
-
-#yelp-logo {
- width: 100px;
- height: auto;
- overflow: auto;
- position: absolute;
- bottom: 5px;
- right: 5px;
- z-index: 1;
 }
 
 .img-rounded:hover {
@@ -187,7 +181,7 @@ header {
   height: 700px;
   left: 30%;
   linear-gradient: (rgba(255,255,255,0.05),rgba(255,255,255,0.05));
-  background-color: white;
+  background-color: black;
 }
 
 #google-maps {
