@@ -12,6 +12,7 @@ var businessInfo = {
 var lovePhotoDiv;
 var cuisinePicked = false;
 var imageCount = 0;
+var lovePhotoDiv;
 // FUNCTIONS
 // =====================================================================================
 // Opening screen of app - asks user to input their location
@@ -227,6 +228,31 @@ function lovePhoto() {
   lovePhotoDiv = $("<div>");
   lovePhotoDiv.attr("id", "love-photo");
   console.log('test');
+
+  lovePhotoDiv = $("<div>");
+  lovePhotoDiv.attr("id", "love-photo");
+
+  yelpInfoDiv = $("<div>");
+
+  var businessDisplay = $("<h1>").html(businessInfo.businessName[imageCount]);
+  var ratingImage = $("<img>");
+  ratingImage.attr("src", businessInfo.businessRating[imageCount]);
+  ratingImage.attr("alt", "Yelp Rating");
+  var yelpLogo2 = $("<img>");
+  // Need to link Yelp page!!!! //
+  yelpLogo2.attr("src", "assets/images/Yelp_trademark_RGB_outline.png");
+  yelpLogo2.attr("alt", "Yelp Logo");
+  yelpLogo2.attr("id", "yelp-logo-2");
+  var ratingDisplay = $("<h2>");
+  ratingDisplay.append(ratingImage);
+  ratingDisplay.append(yelpLogo2);
+  var reviewCount = businessInfo.businessReviewCount[imageCount];
+  var reviewCountDisplay = $("<h3>").html("Based on " + reviewCount + " reviews");
+
+  yelpInfoDiv.append(businessDisplay);
+  yelpInfoDiv.append(ratingDisplay);
+  yelpInfoDiv.append(reviewCountDisplay);
+  lovePhotoDiv.append(yelpInfoDiv);
   getDirections();
 
   $("#main-section").append(lovePhotoDiv);
