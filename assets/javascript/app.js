@@ -10,6 +10,7 @@ var businessInfo = {
   businessReviewCount: [],
 };
 var imageCount = 0;
+var lovePhotoDiv;
 // FUNCTIONS
 // =====================================================================================
 // Opening screen of app - asks user to input their location
@@ -163,25 +164,11 @@ function showPhoto() {
 
   var foodImagesDiv = $("<div>");
   foodImagesDiv.attr("id", "food-images");
-  // foodImagesDiv.css({
-  //   'marginRight': '60%',
-  //   'position': 'relative',
-  //   'backgroundColor': 'white',
-  //   'width': '650px',
-  //   'height': '500px'
-  // });
   $("#main-section").append(foodImagesDiv);
 
   var foodImage = $("<img>");
   foodImage.attr("id", "food-img");
   foodImage.attr("src", businessInfo.businessImages[imageCount]);
-  // foodImage.css({
-  //   'position': 'relative',
-  //
-  //   'width': '300px',
-  //   'height': '300px',
-  //   'backgroundImage': 'cover'
-  // });
   $("#food-images").append(foodImage);
   console.log(businessInfo.businessAddress[imageCount]);
 
@@ -235,15 +222,38 @@ function lovePhoto() {
   $("#dislike-btn").hide();
   $("#food-images").hide();
   console.log('test');
+
+  lovePhotoDiv = $("<div>");
+  lovePhotoDiv.attr("id", "love-photo");
+
+  yelpInfoDiv = $("<div>");
+
+  var businessDisplay = $("<h1>").html(businessInfo.businessName[imageCount]);
+  var ratingImage = $("<img>");
+  ratingImage.attr("src", businessInfo.businessRating[imageCount]);
+  ratingImage.attr("alt", "Yelp Rating");
+  var yelpLogo2 = $("<img>");
+  // Need to link Yelp page!!!! //
+  yelpLogo2.attr("src", "assets/images/Yelp_trademark_RGB_outline.png");
+  yelpLogo2.attr("alt", "Yelp Logo");
+  yelpLogo2.attr("id", "yelp-logo-2");
+  var ratingDisplay = $("<h2>");
+  ratingDisplay.append(ratingImage);
+  ratingDisplay.append(yelpLogo2);
+  var reviewCount = businessInfo.businessReviewCount[imageCount];
+  var reviewCountDisplay = $("<h3>").html("Based on " + reviewCount + " reviews");
+
+  yelpInfoDiv.append(businessDisplay);
+  yelpInfoDiv.append(ratingDisplay);
+  yelpInfoDiv.append(reviewCountDisplay);
+  lovePhotoDiv.append(yelpInfoDiv);
   getDirections();
+  $("#main-section").append(lovePhotoDiv);
 }
 
 // Uses Google Maps Embed API to display directions from the user's current location
 // to the desired restaurant
 function getDirections() {
-  var lovePhotoDiv = $("<div>");
-  lovePhotoDiv.attr("id", "love-photo");
-
   var apiKey = "AIzaSyDUxezpr4WRRo7HEPE-HgmQ4WYCexWVdQs";
   var origin = userLocation;
   var destination = businessInfo.businessAddress[imageCount];
@@ -258,8 +268,6 @@ function getDirections() {
   mapDisplay.attr("frameborder", "0");
   mapDisplay.attr("style", "border:0");
   lovePhotoDiv.append(mapDisplay);
-
-  $("#main-section").append(lovePhotoDiv);
 }
 
 // MAIN PROCESS

@@ -170,11 +170,16 @@ header {
 #yelp-logo {
  width: 100px;
  height: auto;
- overflow: auto;
+ /*overflow: auto;*/
  position: absolute;
  bottom: 5px;
  right: 5px;
  z-index: 1;
+}
+
+#yelp-logo-2 {
+  width: 100px;
+  height: auto;
 }
 
 .img-rounded:hover {
