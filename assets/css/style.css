@@ -142,6 +142,20 @@ header {
   left: 35%;
 }
 
+/*#food-img {
+  position: relative;
+}*/
+
+#yelp-logo {
+  width: 100px;
+  height: auto;
+  overflow: auto;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  z-index: 1;
+}
+
 #buttons-div {
   position: absolute;
   left: 40%;

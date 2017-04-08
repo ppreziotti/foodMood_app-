@@ -7,7 +7,7 @@ var businessInfo = {
   businessImages: [],
   businessAddress: []
 };
-var imageCount;
+var imageCount = 0;
 
 // FUNCTIONS
 // =====================================================================================
@@ -151,12 +151,8 @@ function yelpSearch() {
       console.log('error[' + errorThrown + '], status[' + textStatus + '], jqXHR[' + JSON.stringify(jqXHR) + ']');
   });
 }
-<<<<<<< HEAD
 
 // Displays a photo of a restuarant's food from the businessImages array along with like &
-=======
-// Displays a photo of a restuarant's food from the businessInfos array along with like &
->>>>>>> c937c63108a77286f461c9adf28ef3b0915fd572
 // dislike buttons
 function showPhoto() {
   $("#main-section").empty();
@@ -165,7 +161,6 @@ function showPhoto() {
   foodImagesDiv.attr("id", "food-images");
   $("#main-section").append(foodImagesDiv);
 
-  imageCount = 0;
   var foodImage = $("<img>");
   foodImage.attr("id", "food-img");
   foodImage.attr("src", businessInfo.businessImages[imageCount]);
@@ -176,12 +171,22 @@ function showPhoto() {
   $("#food-images").append(foodImage);
   console.log(businessInfo.businessAddress[imageCount]);
 
+  // Adding Yelp logo/link to Yelp to image in order to comply with Yelp API display requirements
+  var yelpLink = $("<a>");
+  yelpLink.attr("href", "http://www.yelp.com");
+  yelpLink.attr("target", "_blank");
+  var yelpLogo = $("<img>");
+  yelpLogo.attr("id", "yelp-logo");
+  yelpLogo.attr("src", "assets/images/Yelp_trademark_RGB_outline.png");
+  yelpLogo.attr("alt", "Yelp Logo");
+  yelpLink.append(yelpLogo);
+  $("#food-images").append(yelpLink);
+
   // Creating like/dislike "buttons" as images with Bootstrap img-rounded class
   // Need to add on-click event listener and cursor hover event
   var buttonsDiv = $("<div>");
   buttonsDiv.attr("id", "buttons-div");
 
-  imageCount = 0;
   // Creating like & dislike "buttons" as images with Bootstrap img-rounded class
   // **Need to add on-click event listener for both buttons**
   var dislikeButton = $("<img>");
@@ -198,19 +203,14 @@ function showPhoto() {
   buttonsDiv.append(likeButton);
   $("#main-section").append(buttonsDiv);
 }
-
-// Uses Google Maps Embed API to display directions from the user's current location 
+ 
 function nextPhoto() {
   imageCount++;
   if (imageCount >= businessInfo.businessImages.length) {
     imageCount = 0;
   }
   else {
-    $("#food-images").empty();
-    var foodImage = $("<img>");
-    foodImage.attr("src", businessInfo.businessImages[imageCount]);
-    $("#food-images").append(foodImage);
-    console.log(businessInfo.businessAddress[imageCount]);
+    showPhoto();
   }
 }
 
@@ -226,15 +226,9 @@ function lovePhoto() {
 // to the desired restaurant
 function getDirections() {
   var apiKey = "AIzaSyDUxezpr4WRRo7HEPE-HgmQ4WYCexWVdQs";
-  var origin = userLocation;
-<<<<<<< HEAD
-  var destination = "27510"; // To be replaced with actual restaurant address //
-  var queryURL = "https://www.google.com/maps/embed/v1/directions?key=" + apiKey + 
-=======
+  var origin = userLocation; 
   var destination = businessInfo.businessAddress[imageCount];
-  // To be replaced with actual restaurant address //
   var queryURL = "https://www.google.com/maps/embed/v1/directions?key=" + apiKey +
->>>>>>> c937c63108a77286f461c9adf28ef3b0915fd572
     "&origin=" + origin + "&destination=" + destination;
   var mapDisplay = $("<iframe>");
   // added Id to allow for positioning of iframe
