@@ -17,6 +17,61 @@ header {
 }
 
 #main-heading {
+
+  padding-top: 10px;
+  text-align: center;
+  font-family: "tinderFont";
+  background-color: #003366 ;
+  text-shadow:
+    -1px -1px 0 #ea474c ,
+    1px -1px 0 #ea474c ,
+    -1px 1px 0 #ea474c ,
+    1px 1px 0 #ea474c ;
+  color: #003366 ;
+  border-bottom: 4px solid lightgray;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-left: 0px;
+  margin-bottom: 0px;
+  min-width: 100%;
+  height: 1.5em;
+}
+
+#mood-text {
+  color: #ea474c ;
+  font-family: "tinderFont";
+}
+
+#mood-text2 {
+  text-shadow:
+    -1px -1px 0 #ea474c ,
+    1px -1px 0 #ea474c ,
+    -1px 1px 0 #ea474c ,
+    1px 1px 0 #ea474c ;
+  color: #003366 ;
+  font-family: "tinderFont";
+}
+
+#get-started {
+  text-decoration: none;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 10px;
+  font-family: "tinderFont";
+  position: absolute;
+  top: 40px;
+  right: 60%;
+  font-size: 36px;
+}
+
+#get-started-text {
+  text-shadow:
+    -1px -1px 0 #ea474c ,
+    1px -1px 0 #ea474c ,
+    -1px 1px 0 #ea474c ,
+    1px 1px 0 #ea474c ;
+  color: black;
+
  padding-top: 10px;
  text-align: center;
  font-family: "tinderFont";
@@ -63,6 +118,13 @@ header {
 }
 
 #get-started-text {
+ text-shadow:
+   -1px -1px 0 #ea474c ,
+   1px -1px 0 #ea474c ,
+   -1px 1px 0 #ea474c ,
+   1px 1px 0 #ea474c ;
+ color: black;
+
  color: #ea474c;
  text-decoration: none;
 }
@@ -73,12 +135,13 @@ header {
 
 #get-started-text:target {
   color: purple;
+  color: blue;
 }
 
 #home-screen-submit {
    position: absolute;
    right: -5px;
-   bottom: 0px;s
+   bottom: 0px;
 }
 
 #location-form {
@@ -90,11 +153,31 @@ header {
 }
 
 .cuisine-type {
+
   text-shadow:
     -1px -1px 0 black,
     1px -1px 0 black,
     -1px 1px 0 black,
     1px 1px 0 black;
+
+  margin-top : 10px;
+  color: white;
+  position: absolute;
+  right: 35%;
+  font-family: "tinderFont";
+
+ text-shadow:
+   -1px -1px 0 black,
+   1px -1px 0 black,
+   -1px 1px 0 black,
+   1px 1px 0 black;
+ margin-top : 10px;
+ color: white;
+ position: absolute;
+ right: 35%;
+ font-family: "tinderFont";
+
+
   margin-top : 20px;
   width: 600px;
   color: white;
@@ -142,6 +225,15 @@ header {
   color: #C40000;
   font-family: "tinderFont";
   cursor: pointer;
+  
+#food-list:hover {
+  color: #C40000 ;
+  font-family: "tinderFont";
+
+ color: #C40000 ;
+ font-family: "tinderFont"
+  color: #C40000;
+  font-family: "tinderFont";
 }
 
 #dislike-btn {
@@ -195,6 +287,8 @@ header {
 
 #buttons-div {
   position: absolute;
+  left: 40%;
+  top: 60%;
   left: 39%;
   top: 68%;
 }
@@ -206,7 +300,9 @@ header {
 
 .img-rounded:hover {
   cursor: pointer;
+
 }
+
 
 #love-photo {
   margin-top: 50px;
@@ -238,3 +334,4 @@ header {
   text-align: center;
   color: white;
 }
+  
