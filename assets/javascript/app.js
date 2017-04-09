@@ -175,6 +175,7 @@ function showPhoto() {
 
   var foodImage = $("<img>");
   foodImage.attr("id", "food-img");
+  foodImage.attr("class", "well well-lg");
   foodImage.attr("src", businessInfo.businessImages[imageCount]);
   $("#food-images").append(foodImage);
   console.log(businessInfo.businessAddress[imageCount]);
@@ -236,7 +237,9 @@ function lovePhoto() {
   lovePhotoDiv = $("<div>");
   lovePhotoDiv.attr("id", "love-photo");
 
-  yelpInfoDiv = $("<div>");
+  var yelpInfoDiv = $("<div>");
+  yelpInfoDiv.attr("class", "yelp-info-div");
+
 
   var businessDisplay = $("<h1>").html(businessInfo.businessName[imageCount]);
   var ratingImage = $("<img>");
@@ -271,6 +274,7 @@ function getDirections() {
   var queryURL = "https://www.google.com/maps/embed/v1/directions?key=" + apiKey +
     "&origin=" + origin + "&destination=" + destination;
   var mapDisplay = $("<iframe>");
+  mapDisplay.attr("class", "well well-lg");
   // added Id to allow for positioning of iframe
   mapDisplay.attr("id", "google-maps");
   mapDisplay.attr("src", queryURL);

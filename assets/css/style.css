@@ -71,6 +71,10 @@ header {
   color: red;
 }
 
+#get-started-text:target {
+  color: purple;
+}
+
 #home-screen-submit {
    position: absolute;
    right: -5px;
@@ -144,11 +148,17 @@ header {
   width: 100px;
   height: 100px;
   margin-right: 125px;
+  background-color: gray;
+  border-radius: 50%;
+  box-shadow: 10px 10px 5px black;
 }
 
 #like-btn {
   width: 100px;
   height: 100px;
+  background-color: gray;
+  border-radius: 50%;
+  box-shadow: 10px 10px 5px black;
 }
 
 #food-images {
@@ -169,7 +179,7 @@ header {
   margin-top: 50px;
   margin-left: 125px;
   /*border: 5px solid black;*/
-  /*box-shadow: 10px 10px 5px black;*/
+  box-shadow: 10px 10px 5px black;
 }
 
 #yelp-logo {
@@ -177,8 +187,8 @@ header {
   height: auto;
   overflow: auto;
   position: absolute;
-  bottom: 240px;
-  right: 115px;
+  bottom: 265px;
+  right: 145px;
   z-index: 1;
   /*background-color: #d32323; -- Yelp's recommended background color */
 }
@@ -204,7 +214,7 @@ header {
   width: 650px;
   height: 700px;
   left: 28%;
-  background-image: linear-gradient(rgba(255,255,255,0.10),rgba(255,255,255,0.1));
+  background-image: linear-gradient(rgba(255,255,255,0.10),rgba(255,255,255,0.10));
   box-shadow: 10px 10px 5px black;
   background-color: black;
 }
@@ -222,4 +232,9 @@ header {
   bottom: 10px;
   font-size: 18px;
   width: 300px;
+}
+
+.yelp-info-div {
+  text-align: center;
+  color: white;
 }
