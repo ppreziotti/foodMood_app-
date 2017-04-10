@@ -16,6 +16,7 @@ var lovePhotoDiv;
 // FUNCTIONS
 // =====================================================================================
 // Opening screen of app - asks user to input their location
+
 function homeScreen() {
   var openingGreeting = $("<div>");
   openingGreeting.html("<h1 id ='opening-greeting'> What are you in the <span id='mood-text2'><i> mood </i></span> for?</h1>");
@@ -41,6 +42,9 @@ function openScreen() {
   var foodTypes = ["Italian", "Chinese", "Mediterranean", "Mexican", "Indian", "Sushi"];
   var counter = 1;
   for(var i = 0; i < foodTypes.length; i++) {
+
+    //redundant code written, edited out for clarity
+
     // var foodDiv = $("<div>");
     // foodDiv.attr("class", "radio");
     // foodDiv.attr("id", "food-div" + counter);
@@ -66,6 +70,7 @@ function openScreen() {
 // The photos are then stored in the businessInfos array
 function yelpSearch() {
   var queryURL = 'https://api.yelp.com/v2/search';
+  //authentication object containing necessary headers for server authentication
   var auth= {
     consumerKey: 'auktxeLEVeqlzAMSmT6CzQ',
     consumerSecret: 'kGoz9Jmvzxwuu3FiTvyhgbkRkaI',
@@ -75,10 +80,12 @@ function yelpSearch() {
       signatureMethod: "HMAC-SHA1"
     }
   };
+
   var accessor = {
     consumerSecret: auth.consumerSecret,
     tokenSecret: auth.accessTokenSecret
   };
+
   var parameters = [];
     parameters.push(['term', cuisineChosen]);
     parameters.push(['location', userLocation]);
@@ -87,17 +94,20 @@ function yelpSearch() {
     parameters.push(['oauth_token', auth.accessToken]);
     parameters.push(['oauth_signature_method', 'HMAC-SHA1']);
     parameters.push(['callback', 'cb']);
+
   var message = {
     'action': 'https://api.yelp.com/v2/search',
     'method': 'GET',
     'parameters': parameters
   };
+
   // console.log(message.action);
   OAuth.setTimestampAndNonce(message);
   OAuth.SignatureMethod.sign(message, accessor);
   var parameterMap = OAuth.getParameterMap(message.parameters);
   parameterMap.oauth_signature = OAuth.percentEncode(parameterMap.oauth_signature);
   // console.log(parameterMap);
+
   $.ajax({
     'url' : message.action,
     'data' : parameterMap,
@@ -107,7 +117,7 @@ function yelpSearch() {
   }).done(function(data) {
       console.log(data);
       var businessName = [];
-      for (var i = 0; i < 10; i++) {
+      for (var i = 0; i < 20; i++) {
         var result = data.businesses[i].id;
         // var result2 = result.replace( /\-\d+$/, "");
         businessName.push(result);
@@ -131,6 +141,8 @@ function yelpSearch() {
       var parameterMap2 = OAuth.getParameterMap(message2.parameters);
       parameterMap2.oauth_signature =
       OAuth.percentEncode(parameterMap2.oauth_signature);
+      // second ajax call using the business ids captured in the first ajax call to pull business info(business images,
+      // user-uploaded images, business address, business rating and review count)
         $.ajax({
           'url': message2.action,
           'data': parameterMap2,
@@ -201,7 +213,6 @@ function showPhoto() {
   var dislikeButton = $("<img>");
   dislikeButton.addClass("img-rounded");
   dislikeButton.attr("id", "dislike-btn");
-
   dislikeButton.attr("src", "assets/images/dislike-button3.png");
   buttonsDiv.append(dislikeButton);
 
@@ -216,9 +227,11 @@ function showPhoto() {
 
 function nextPhoto() {
   imageCount++;
+
   if (imageCount >= businessInfo.businessImages.length) {
     imageCount = 0;
   }
+
   else {
     showPhoto();
     console.log(imageCount);
@@ -246,7 +259,7 @@ function lovePhoto() {
   ratingImage.attr("src", businessInfo.businessRating[imageCount]);
   ratingImage.attr("alt", "Yelp Rating");
   var yelpLogo2 = $("<img>");
-  // Need to link Yelp page!!!! //
+  // Need to link Yelp page!!!!
   yelpLogo2.attr("src", "assets/images/Yelp_trademark_RGB_outline.png");
   yelpLogo2.attr("alt", "Yelp Logo");
   yelpLogo2.attr("id", "yelp-logo-2");
@@ -260,12 +273,32 @@ function lovePhoto() {
   yelpInfoDiv.append(ratingDisplay);
   yelpInfoDiv.append(reviewCountDisplay);
   lovePhotoDiv.append(yelpInfoDiv);
+
+  var returnButton = $("<button>");
+  returnButton.attr("id", "return-btn");
+  returnButton.attr("class", "btn btn-default");
+  returnButton.attr("type", "submit");
+  returnButton.html("Choose another restaurant");
+  lovePhotoDiv.append(returnButton);
+
+  // returns getDirections() which triggers google API directions search and embed
   getDirections();
 
   $("#main-section").append(lovePhotoDiv);
 }
 
-// Uses Google Maps Embed API to display directions from the user's current location
+function returnScreen() {
+  // need to append a button to lovePhoto() screen to return to previous screen
+  // 1) need to hide lovePhoto screen and return-btn 2) unhide #like-btn, #dislike-btn and #food-images div
+  // ensure functionality between screens and nextPhoto and lovePhoto functions on button clicks after returning
+  $("#love-photo").hide();
+  $("#return-btn").hide();
+  $("#like-btn").show();
+  $("#dislike-btn").show();
+  $("#food-images").show();
+}
+
+// Uses Google Maps Embed API to display directions from the user's current location, captured on 1st submit button click,
 // to the desired restaurant
 function getDirections() {
   var apiKey = "AIzaSyDUxezpr4WRRo7HEPE-HgmQ4WYCexWVdQs";
@@ -274,6 +307,7 @@ function getDirections() {
   var queryURL = "https://www.google.com/maps/embed/v1/directions?key=" + apiKey +
     "&origin=" + origin + "&destination=" + destination;
   var mapDisplay = $("<iframe>");
+  // bootstrap class to create a encompassing panel around an element
   mapDisplay.attr("class", "well well-lg");
   // added Id to allow for positioning of iframe
   mapDisplay.attr("id", "google-maps");
@@ -287,6 +321,9 @@ function getDirections() {
 
 // MAIN PROCESS
 // ==========================================================================================
+
+// add facebook user authentication here:
+// -------------------->
 
 // Open the home screen immediately
 homeScreen();
@@ -332,6 +369,9 @@ $(document).on("click", "#like-btn", lovePhoto);
 // If the user clicks the dislike button, execute the nextPhoto function
 $(document).on("click", "#dislike-btn", nextPhoto);
 
-// // If the user clicks the dislike button, execute the nextPhoto function
-// $(document).on("click", "#dislike-btn", nextPhoto);
-$(document).on("click","#dislike-btn", nextPhoto);
+//If user clicks the return to screen option
+$(document).on("click", "#return-btn", function(event) {
+  event.preventDefault();
+  // bug found that you can't return to selection
+  returnScreen();
+});

@@ -71,9 +71,10 @@ header {
   color: red;
 }
 
-#get-started-text:target {
+/*look into creating a confirmed clicked radio button color*/
+/*#get-started-text:target {
   color: purple;
-}
+}*/
 
 #home-screen-submit {
    position: absolute;
@@ -237,4 +238,28 @@ header {
 .yelp-info-div {
   text-align: center;
   color: white;
+}
+
+#return-btn {
+  position: absolute;
+  right: 35%;
+}
+
+#facebook-wrapper {
+  position: relative;
+  left: 29%;
+  top: 26%;
+}
+
+#facebook-greeting {
+  position: absolute;
+  bottom: 62%;
+  color: white;
+  padding-bottom: 10px;
+  font-size: 24px;
+}
+
+#status {
+  color: white;
+  font-size: 16px;
 }
