@@ -11,6 +11,15 @@ html {
   position: relative;
 }
 
+html, body, #wrapper {
+  height: 100%:
+  width: 100%; 
+}
+
+#main-section {
+  align-self: stretch;
+}
+
 .container-fluid {
  padding-left: 0px;
  padding-right: 0px;
@@ -44,7 +53,7 @@ header {
  margin-right: 0px;
  margin-left: 0px;
  margin-bottom: 0px;
- min-width: 100%;
+ width: 100%;
  overflow: auto;
 }
 
@@ -277,4 +286,10 @@ header {
   font-size: 16px;
   position: absolute;
   right: 3%;
+}
+
+#share-btn {
+  position: absolute;
+  right: 900px;
+  top: 2px;
 }
