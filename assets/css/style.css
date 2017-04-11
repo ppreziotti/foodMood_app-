@@ -7,6 +7,19 @@
  src: url(fonts/tinderFont.ttf);
 }
 
+html {
+  position: relative;
+}
+
+html, body, #wrapper {
+  height: 100%:
+  width: 100%; 
+}
+
+#main-section {
+  align-self: stretch;
+}
+
 .container-fluid {
  padding-left: 0px;
  padding-right: 0px;
@@ -16,79 +29,32 @@ header {
  width: 100%;
 }
 
-#main-heading {
-
-  padding-top: 10px;
+#main-heading-text {
+  padding-top: 5px;
   text-align: center;
   font-family: "tinderFont";
-  background-color: #003366 ;
   text-shadow:
     -1px -1px 0 #ea474c ,
     1px -1px 0 #ea474c ,
     -1px 1px 0 #ea474c ,
     1px 1px 0 #ea474c ;
   color: #003366 ;
-  border-bottom: 4px solid lightgray;
-  margin-top: 0px;
-  margin-right: 0px;
-  margin-left: 0px;
-  margin-bottom: 0px;
-  min-width: 100%;
-  height: 1.5em;
-}
-
-#mood-text {
-  color: #ea474c ;
-  font-family: "tinderFont";
-}
-
-#mood-text2 {
-  text-shadow:
-    -1px -1px 0 #ea474c ,
-    1px -1px 0 #ea474c ,
-    -1px 1px 0 #ea474c ,
-    1px 1px 0 #ea474c ;
-  color: #003366 ;
-  font-family: "tinderFont";
-}
-
-#get-started {
-  text-decoration: none;
-  cursor: pointer;
-  margin-top: 10px;
-  border-radius: 10px;
-  font-family: "tinderFont";
-  position: absolute;
-  top: 40px;
-  right: 60%;
+  margin-bottom: 5px;
   font-size: 36px;
+  float: left;
+  position: relative;
+  left: 45%;
 }
 
-#get-started-text {
-  text-shadow:
-    -1px -1px 0 #ea474c ,
-    1px -1px 0 #ea474c ,
-    -1px 1px 0 #ea474c ,
-    1px 1px 0 #ea474c ;
-  color: black;
-
- padding-top: 10px;
- text-align: center;
- font-family: "tinderFont";
+#main-heading {
  background-color: #003366 ;
- text-shadow:
-   -1px -1px 0 #ea474c ,
-   1px -1px 0 #ea474c ,
-   -1px 1px 0 #ea474c ,
-   1px 1px 0 #ea474c ;
- color: #003366 ;
  border-bottom: 4px solid lightgray;
- margin-top: 0px;
+ margin-top: -20px;
  margin-right: 0px;
  margin-left: 0px;
  margin-bottom: 0px;
- min-width: 100%;
- height: 1.5em;
+ width: 100%;
+ overflow: auto;
 }
 
 #mood-text {
@@ -118,13 +84,6 @@ header {
 }
 
 #get-started-text {
- text-shadow:
-   -1px -1px 0 #ea474c ,
-   1px -1px 0 #ea474c ,
-   -1px 1px 0 #ea474c ,
-   1px 1px 0 #ea474c ;
- color: black;
-
  color: #ea474c;
  text-decoration: none;
 }
@@ -133,15 +92,15 @@ header {
   color: red;
 }
 
-#get-started-text:target {
+/*look into creating a confirmed clicked radio button color*/
+/*#get-started-text:target {
   color: purple;
-  color: blue;
-}
+}*/
 
 #home-screen-submit {
    position: absolute;
    right: -5px;
-   bottom: 0px;
+   bottom: 0px;s
 }
 
 #location-form {
@@ -153,31 +112,11 @@ header {
 }
 
 .cuisine-type {
-
   text-shadow:
     -1px -1px 0 black,
     1px -1px 0 black,
     -1px 1px 0 black,
     1px 1px 0 black;
-
-  margin-top : 10px;
-  color: white;
-  position: absolute;
-  right: 35%;
-  font-family: "tinderFont";
-
- text-shadow:
-   -1px -1px 0 black,
-   1px -1px 0 black,
-   -1px 1px 0 black,
-   1px 1px 0 black;
- margin-top : 10px;
- color: white;
- position: absolute;
- right: 35%;
- font-family: "tinderFont";
-
-
   margin-top : 20px;
   width: 600px;
   color: white;
@@ -204,7 +143,7 @@ header {
 #opening-greeting {
  font-size: 60px;
  color: white;
- margin-top: 50px;
+ margin-top: 30px;
  text-shadow:
    -1px -1px 0 black,
    1px -1px 0 black,
@@ -225,15 +164,6 @@ header {
   color: #C40000;
   font-family: "tinderFont";
   cursor: pointer;
-  
-#food-list:hover {
-  color: #C40000 ;
-  font-family: "tinderFont";
-
- color: #C40000 ;
- font-family: "tinderFont"
-  color: #C40000;
-  font-family: "tinderFont";
 }
 
 #dislike-btn {
@@ -287,8 +217,6 @@ header {
 
 #buttons-div {
   position: absolute;
-  left: 40%;
-  top: 60%;
   left: 39%;
   top: 68%;
 }
@@ -300,9 +228,7 @@ header {
 
 .img-rounded:hover {
   cursor: pointer;
-
 }
-
 
 #love-photo {
   margin-top: 50px;
@@ -334,4 +260,37 @@ header {
   text-align: center;
   color: white;
 }
-  
+
+#return-btn {
+  position: absolute;
+  right: 35%;
+}
+
+#facebook-wrapper {
+  position: absolute;
+  left: 94%;
+  top: 2%;
+}
+
+#facebook-greeting {
+  position: absolute;
+  bottom: 77%;
+  left: 29%;
+  color: white;
+  padding-bottom: 10px;
+  font-size: 24px;
+}
+
+#status {
+  color: white;
+  font-size: 16px;
+  position: absolute;
+  right: 3%;
+}
+
+#share-btn {
+  position: absolute;
+  right: 900px;
+  top: 2px;
+}
+
