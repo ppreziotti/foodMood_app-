@@ -3,6 +3,19 @@
  src: url(fonts/tinderFont.ttf);
 }
 
+html {
+  position: relative;
+}
+
+html, body, #wrapper {
+  height: 100%:
+  width: 100%; 
+}
+
+#main-section {
+  align-self: stretch;
+}
+
 .container-fluid {
  padding-left: 0px;
  padding-right: 0px;
@@ -12,24 +25,32 @@ header {
  width: 100%;
 }
 
+#main-heading-text {
+  padding-top: 5px;
+  text-align: center;
+  font-family: "tinderFont";
+  text-shadow:
+    -1px -1px 0 #ea474c ,
+    1px -1px 0 #ea474c ,
+    -1px 1px 0 #ea474c ,
+    1px 1px 0 #ea474c ;
+  color: #003366 ;
+  margin-bottom: 5px;
+  font-size: 36px;
+  float: left;
+  position: relative;
+  left: 45%;
+}
+
 #main-heading {
- padding-top: 10px;
- text-align: center;
- font-family: "tinderFont";
  background-color: #003366 ;
- text-shadow:
-   -1px -1px 0 #ea474c ,
-   1px -1px 0 #ea474c ,
-   -1px 1px 0 #ea474c ,
-   1px 1px 0 #ea474c ;
- color: #003366 ;
  border-bottom: 4px solid lightgray;
- margin-top: 0px;
+ margin-top: -20px;
  margin-right: 0px;
  margin-left: 0px;
  margin-bottom: 0px;
- min-width: 100%;
- height: 1.5em;
+ width: 100%;
+ overflow: auto;
 }
 
 #mood-text {
@@ -61,12 +82,22 @@ header {
 
 #get-started-text {
  color: #ea474c;
+ text-decoration: none;
 }
+
+#get-started-text:hover {
+  color: red;
+}
+
+/*look into creating a confirmed clicked radio button color*/
+/*#get-started-text:target {
+  color: purple;
+}*/
 
 #home-screen-submit {
    position: absolute;
    right: -5px;
-   bottom: 0px;s
+   bottom: 0px;
 }
 
 #location-form {
@@ -88,6 +119,16 @@ header {
   position: absolute;
   right: 35%;
   font-family: "tinderFont";
+  margin-top : 20px;
+  width: 600px;
+  color: white;
+  position: absolute;
+  right: 20%;
+  font-family: "tinderFont";
+  background-color: black;
+  padding-left: 20px;
+  background-image: linear-gradient(rgba(255,255,255,0.10),rgba(255,255,255,0.1));
+  box-shadow: 10px 10px 5px black;
 }
 
 #main-section {
@@ -104,7 +145,7 @@ header {
 #opening-greeting {
  font-size: 60px;
  color: white;
- margin-top: 50px;
+ margin-top: 30px;
  text-shadow:
    -1px -1px 0 black,
    1px -1px 0 black,
@@ -113,10 +154,15 @@ header {
  text-align: center;
 }
 
-
 #food-list:hover {
   color: #C40000;
   font-family: "tinderFont";
+}
+
+.food-list:hover {
+  color: #C40000;
+  font-family: "tinderFont";
+  cursor: pointer;
 }
 
 #dislike-btn {
@@ -163,8 +209,8 @@ header {
 
 #buttons-div {
   position: absolute;
-  left: 38%;
-  top: 75%;
+  left: 39%;
+  top: 68%;
 }
 
 #yelp-logo {
@@ -216,15 +262,6 @@ header {
   margin-left: 75px;
 }
 
-#back-btn, #start-over-btn {
-  background-color: #003366;
-  color: #ea474c;
-}
-
-#back-btn {
-  margin-right: 10px;
-}
-
 html, body, #wrapper {
  height: 100%;
 }
@@ -232,3 +269,37 @@ html, body, #wrapper {
 #main-section {
  align-self: stretch;
 }
+
+#return-btn {
+  position: absolute;
+  right: 35%;
+}
+
+#facebook-wrapper {
+  position: absolute;
+  left: 94%;
+  top: 2%;
+}
+
+#facebook-greeting {
+  position: absolute;
+  bottom: 77%;
+  left: 29%;
+  color: white;
+  padding-bottom: 10px;
+  font-size: 24px;
+}
+
+#status {
+  color: white;
+  font-size: 16px;
+  position: absolute;
+  right: 3%;
+}
+
+#share-btn {
+  position: absolute;
+  right: 900px;
+  top: 2px;
+}
+
