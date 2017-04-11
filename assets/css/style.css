@@ -7,6 +7,10 @@
  src: url(fonts/tinderFont.ttf);
 }
 
+html {
+  position: relative;
+}
+
 .container-fluid {
  padding-left: 0px;
  padding-right: 0px;
@@ -16,24 +20,32 @@ header {
  width: 100%;
 }
 
+#main-heading-text {
+  padding-top: 5px;
+  text-align: center;
+  font-family: "tinderFont";
+  text-shadow:
+    -1px -1px 0 #ea474c ,
+    1px -1px 0 #ea474c ,
+    -1px 1px 0 #ea474c ,
+    1px 1px 0 #ea474c ;
+  color: #003366 ;
+  margin-bottom: 5px;
+  font-size: 36px;
+  float: left;
+  position: relative;
+  left: 45%;
+}
+
 #main-heading {
- padding-top: 10px;
- text-align: center;
- font-family: "tinderFont";
  background-color: #003366 ;
- text-shadow:
-   -1px -1px 0 #ea474c ,
-   1px -1px 0 #ea474c ,
-   -1px 1px 0 #ea474c ,
-   1px 1px 0 #ea474c ;
- color: #003366 ;
  border-bottom: 4px solid lightgray;
- margin-top: 0px;
+ margin-top: -20px;
  margin-right: 0px;
  margin-left: 0px;
  margin-bottom: 0px;
  min-width: 100%;
- height: 1.5em;
+ overflow: auto;
 }
 
 #mood-text {
@@ -122,7 +134,7 @@ header {
 #opening-greeting {
  font-size: 60px;
  color: white;
- margin-top: 50px;
+ margin-top: 30px;
  text-shadow:
    -1px -1px 0 black,
    1px -1px 0 black,
@@ -246,14 +258,15 @@ header {
 }
 
 #facebook-wrapper {
-  position: relative;
-  left: 29%;
-  top: 26%;
+  position: absolute;
+  left: 94%;
+  top: 2%;
 }
 
 #facebook-greeting {
   position: absolute;
-  bottom: 62%;
+  bottom: 77%;
+  left: 29%;
   color: white;
   padding-bottom: 10px;
   font-size: 24px;
@@ -262,4 +275,6 @@ header {
 #status {
   color: white;
   font-size: 16px;
+  position: absolute;
+  right: 3%;
 }

@@ -1,5 +1,80 @@
+function statusChangeCallback(response) {
+  console.log('statusChangeCallback');
+  console.log(response);
+  // The response object is returned with a status field that lets the
+  // app know the current login status of the person.
+  // Full docs on the response object can be found in the documentation
+  // for FB.getLoginStatus().
+  if (response.status === 'connected') {
+    // Logged into your app and Facebook.
+    testAPI();
+  } else {
+    // The person is not logged into your app or we are unable to tell.
+    document.getElementById('status').innerHTML = 'Please log ' +
+      'into this app.';
+  }
+}
+
+// This function is called when someone finishes with the Login
+// Button.  See the onlogin handler attached to it in the sample
+// code below.
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
+
+window.fbAsyncInit = function() {
+FB.init({
+  appId      : '1678163075543673',
+  cookie     : true,  // enable cookies to allow the server to access
+                      // the session
+  xfbml      : true,  // parse social plugins on this page
+  version    : 'v2.8' // use graph api version 2.8
+});
+
+// Now that we've initialized the JavaScript SDK, we call
+// FB.getLoginStatus().  This function gets the state of the
+// person visiting this page and can return one of three states to
+// the callback you provide.  They can be:
+//
+// 1. Logged into your app ('connected')
+// 2. Logged into Facebook, but not your app ('not_authorized')
+// 3. Not logged into Facebook and can't tell if they are logged into
+//    your app or not.
+//
+// These three cases are handled in the callback function.
+
+FB.getLoginStatus(function(response) {
+  statusChangeCallback(response);
+});
+
+};
+
+// Load the SDK asynchronously
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "https://connect.facebook.net/en_US/sdk.js";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+// Here we run a very simple test of the Graph API after login is
+// successful.  See statusChangeCallback() for when this call is made.
+function testAPI() {
+  console.log('Welcome!  Fetching your information.... ');
+  FB.api('/me', function(response) {
+    console.log('Successful login for: ' + response.name);
+    document.getElementById('status').innerHTML =
+      'Thanks for logging in, ' + response.name + '!';
+      userName = response.name;
+  });
+}
+
 // GLOBAL VARIABLES
 // =====================================================================================
+var userName;
 var userLocation;
 var cuisineChosen;
 var businessInfo = {
@@ -16,6 +91,22 @@ var lovePhotoDiv;
 // FUNCTIONS
 // =====================================================================================
 // Opening screen of app - asks user to input their location
+function validation(userLocation) {
+   if (userLocation.length === 5) {
+        for( var i = 0; i < 5; i++) {
+          if (userLocation.charCodeAt(i) >= 48 && userLocation.charCodeAt(i) <= 57) {
+            console.log("it is a zip code");
+        }// end if
+        else if ((userLocation.charCodeAt(i) >= 65 && userLocation.charCodeAt(i) <= 90) || (userLocation.charCodeAt(i) >= 97 && userLocation.charCodeAt(i) <= 121) ){
+          console.log("It is a city");
+        } // end else of
+        else {
+          console.log("it is not a zip code or a city");
+          break;
+        }// end else
+      }//end for
+    }// end if
+}// end function
 
 function homeScreen() {
   var openingGreeting = $("<div>");
@@ -37,21 +128,11 @@ function homeScreen() {
 // choose from
 function openScreen() {
   var cuisineType = $("<div class='cuisine-type'>");
-  cuisineType.html("<h1 id='cuisine-header' class='cuisine-type'> What type of cuisine? </h1>");
+  cuisineType.html("<h1 id='cuisine-header' class='cuisine-type'> What type of cuisine " + userName + "? </h1>");
   $("#main-section").append(cuisineType);
   var foodTypes = ["Italian", "Chinese", "Mediterranean", "Mexican", "Indian", "Sushi"];
   var counter = 1;
   for(var i = 0; i < foodTypes.length; i++) {
-
-    //redundant code written, edited out for clarity
-
-    // var foodDiv = $("<div>");
-    // foodDiv.attr("class", "radio");
-    // foodDiv.attr("id", "food-div" + counter);
-    //
-    // $(".cuisine-type").append(foodDiv);
-
-
     var foodList = $("<label>");
     foodList.attr("class", "food-list radio");
     foodList.attr("id", "food-list" + counter);
@@ -117,8 +198,8 @@ function yelpSearch() {
   }).done(function(data) {
       console.log(data);
       var businessName = [];
-      for (var i = 0; i < 20; i++) {
-        var result = data.businesses[i].id;
+      for (var i = 0; i < 10; i++) {
+        var result = data.businesses[i].id;9
         // var result2 = result.replace( /\-\d+$/, "");
         businessName.push(result);
         console.log(businessName);
@@ -334,6 +415,7 @@ homeScreen();
 $(document).on("click", "#home-screen-submit", function(event) {
   event.preventDefault();
   userLocation = $("#user-location").val().trim();
+  validation(userLocation);
   $("#user-location").val("");
   console.log(userLocation);
   $("#main-section").empty();
@@ -358,7 +440,7 @@ $(document).on("click", "#get-started", function(event) {
     yelpSearch();
     $(document).ajaxStop(function() {
       showPhoto();
-  });
+    });
   }
 });
 
