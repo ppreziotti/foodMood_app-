@@ -126,7 +126,6 @@ function validation(userLocation) {
  };
  firebase.initializeApp(config);
 
-
  var database = firebase.database();
 
 
