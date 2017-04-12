@@ -1,3 +1,7 @@
+* {
+  border-style: border-box;
+}
+
 @font-face {
  font-family: "tinderFont";
  src: url(fonts/tinderFont.ttf);
@@ -9,7 +13,7 @@ html {
 
 html, body, #wrapper {
   height: 100%:
-  width: 100%; 
+  width: 100%;
 }
 
 #main-section {
@@ -69,14 +73,13 @@ header {
 }
 
 #get-started {
-  text-decoration: none;
   cursor: pointer;
   margin-top: 10px;
   border-radius: 10px;
   font-family: "tinderFont";
   position: absolute;
-  top: 40px;
-  right: 60%;
+  top: 335px;
+  right: 76%;
   font-size: 36px;
 }
 
@@ -97,7 +100,7 @@ header {
 #home-screen-submit {
    position: absolute;
    right: -5px;
-   bottom: 0px;
+   bottom: 0px;s
 }
 
 #location-form {
@@ -114,11 +117,6 @@ header {
     1px -1px 0 black,
     -1px 1px 0 black,
     1px 1px 0 black;
-  margin-top : 10px;
-  color: white;
-  position: absolute;
-  right: 35%;
-  font-family: "tinderFont";
   margin-top : 20px;
   width: 600px;
   color: white;
@@ -154,9 +152,12 @@ header {
  text-align: center;
 }
 
-#food-list:hover {
-  color: #C40000;
-  font-family: "tinderFont";
+#cuisine-header {
+  padding-top: 10px;
+}
+
+.food-list {
+  padding-left: 20px;
 }
 
 .food-list:hover {
@@ -168,24 +169,29 @@ header {
 #dislike-btn {
   width: 100px;
   height: 100px;
-  background-color: white;
   margin-right: 125px;
+  background-color: gray;
+  border-radius: 50%;
+  box-shadow: 10px 10px 5px black;
 }
 
 #like-btn {
   width: 100px;
   height: 100px;
-  background-color: white;
+  background-color: gray;
+  border-radius: 50%;
+  box-shadow: 10px 10px 5px black;
 }
 
 #food-images {
   margin-top: 50px;
   position: absolute;
   width: 650px;
-  height: 500px;
-  left: 30%;
-  linear-gradient: (rgba(255,255,255,0.05),rgba(255,255,255,0.05));
-  background-color: white;
+  height: 700px;
+  left: 28%;
+  background-image: linear-gradient(rgba(255,255,255,0.10),rgba(255,255,255,0.1));
+  box-shadow: 10px 10px 5px black;
+  background-color: black;
 }
 
 #food-img {
@@ -194,6 +200,8 @@ header {
   height: 400px;
   margin-top: 50px;
   margin-left: 125px;
+  /*border: 5px solid black;*/
+  box-shadow: 10px 10px 5px black;
 }
 
 #yelp-logo {
@@ -201,8 +209,8 @@ header {
   height: auto;
   overflow: auto;
   position: absolute;
-  bottom: 5px;
-  right: 5px;
+  bottom: 265px;
+  right: 145px;
   z-index: 1;
   /*background-color: #d32323; -- Yelp's recommended background color */
 }
@@ -213,14 +221,9 @@ header {
   top: 68%;
 }
 
-#yelp-logo {
- width: 100px;
- height: auto;
- /*overflow: auto;*/
- position: absolute;
- bottom: 5px;
- right: 5px;
- z-index: 1;
+#yelp-logo-2 {
+  width: 100px;
+  height: auto;
 }
 
 .img-rounded:hover {
@@ -232,47 +235,38 @@ header {
   position: absolute;
   width: 650px;
   height: 700px;
-  left: 30%;
-  linear-gradient: (rgba(255,255,255,0.05),rgba(255,255,255,0.05));
-  background-color: white;
-  margin-left: 20px;
-  overflow: auto;
-  text-align: center;
-}
-
-#yelp-logo-2 {
-  width: 100px;
-  height: auto;
-  margin-top: 0;
-  margin-bottom: 0;
-  padding: 0;
-}
-
-#business-name-display {
-  margin-bottom: 0;
-}
-
-#rating-display {
-  margin-top: 0;
-  padding: 0;
+  left: 28%;
+  background-image: linear-gradient(rgba(255,255,255,0.10),rgba(255,255,255,0.10));
+  box-shadow: 10px 10px 5px black;
+  background-color: black;
 }
 
 #google-maps {
-  margin-top: 25px;
+  position: absolute;
+  top: 15%;
+  margin-top: 50px;
   margin-left: 75px;
 }
 
-html, body, #wrapper {
- height: 100%;
+#need-cuisine-div {
+  font-family: sans-serif, arial;
+  color: red;
+  position: absolute;
+  left: 150px;
+  bottom: 10px;
+  font-size: 18px;
+  width: 300px;
 }
 
-#main-section {
- align-self: stretch;
+.yelp-info-div {
+  text-align: center;
+  color: white;
 }
 
 #return-btn {
   position: absolute;
-  right: 35%;
+  left: 20%;
+  bottom: 5%;
 }
 
 #facebook-wrapper {
@@ -303,3 +297,16 @@ html, body, #wrapper {
   top: 2px;
 }
 
+#start-over-btn {
+  position: absolute;
+  bottom: 5%;
+  right: 20%;
+}
+
+#chooseAnother {
+  position: absolute;
+  bottom: 13%;
+  right: 32%;
+  color: white;
+  font-size: 28px;
+}

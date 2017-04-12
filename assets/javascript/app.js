@@ -88,11 +88,12 @@ var businessInfo = {
   businessImages: [],
   businessAddress: [],
   businessRating: [],
-  businessReviewCount: []
+  businessReviewCount: [],
 };
+var lovePhotoDiv;
+var cuisinePicked = false;
 var imageCount = 0;
 var lovePhotoDiv;
-
 // FUNCTIONS
 // =====================================================================================
 // Opening screen of app - asks user to input their location
@@ -115,10 +116,9 @@ function validation(userLocation) {
 
 function homeScreen() {
   var openingGreeting = $("<div>");
-  openingGreeting.html("<h1 id ='opening-greeting'> What are <i>you</i> in the <span id='moodText2'> mood </span> for?</h1>");
+  openingGreeting.html("<h1 id ='opening-greeting'> What are you in the <span id='mood-text2'><i> mood </i></span> for?</h1>");
   var locationForm = $("<form>");
   locationForm.attr("id", "location-form");
-  locationForm.addClass("col-lg-6");
   locationForm.html("<input class='form-control' id='user-location' type='text' name='user-location' placeholder='Enter your address to get started!'/>");
   var homeScreenSubmit = $("<button>");
   homeScreenSubmit.attr("class", "btn btn-default");
@@ -133,29 +133,26 @@ function homeScreen() {
 // Screen opened after the user inputs their location, lists cuisines types for the user to
 // choose from
 function openScreen() {
-  $("#main-section").empty();
+  $("#love-photo").show();
+
   var cuisineType = $("<div class='cuisine-type'>");
   cuisineType.html("<h1 id='cuisine-header' class='cuisine-type'> What type of cuisine " + userName2 + "? </h1>");
   $("#main-section").append(cuisineType);
-  var foodTypes = ["Italian", "Chinese", "Mediterranean", "Mexican", "Surprise Me"];
+  var foodTypes = ["Italian", "Chinese", "Mediterranean", "Mexican", "Indian", "Sushi"];
   var counter = 1;
   for(var i = 0; i < foodTypes.length; i++) {
-    var foodDiv = $("<div>");
-    foodDiv.attr("class", "radio");
-    foodDiv.attr("id", "food-div" + counter);
-    $(".cuisine-type").append(foodDiv);
-
     var foodList = $("<label>");
-    foodList.attr("class", "food-list");
+    foodList.attr("class", "food-list radio");
+    foodList.attr("id", "food-list" + counter);
     foodList.html("<input value=" + foodTypes[i] + " " + "type='radio' name='optradio' class='food-value'>" + foodTypes[i]);
-    $("#food-div"+ counter).append(foodList);
+    $("#cuisine-header").append(foodList);
     counter++;
   }
 
   var getStarted = $("<p>");
   getStarted.attr("id", "get-started");
   getStarted.html("<a id='get-started-text'>Submit</a>");
-  $("#food-div" + 5).append(getStarted);
+  $("#cuisine-header").append(getStarted);
 }
 
 // Pulls photos from the Yelp API based on the user's location and desired cuisine type
@@ -210,7 +207,7 @@ function yelpSearch() {
       console.log(data);
       var businessName = [];
       for (var i = 0; i < 10; i++) {
-        var result = data.businesses[i].id;9
+        var result = data.businesses[i].id;
         // var result2 = result.replace( /\-\d+$/, "");
         businessName.push(result);
         console.log(businessName);
@@ -243,6 +240,7 @@ function yelpSearch() {
           'cache': true
         }).done(function(response) {
           // need to store image value and replace "ms" in jpg to change with "l" or "o"
+          console.log (businessInfo);
           var businessName = response.name;
           var businessId = response.id;
           var customerImage = response.image_url;
@@ -280,6 +278,7 @@ function showPhoto() {
 
   var foodImage = $("<img>");
   foodImage.attr("id", "food-img");
+  foodImage.attr("class", "well well-lg");
   foodImage.attr("src", businessInfo.businessImages[imageCount]);
   $("#food-images").append(foodImage);
   console.log(businessInfo.businessAddress[imageCount]);
@@ -305,7 +304,6 @@ function showPhoto() {
   var dislikeButton = $("<img>");
   dislikeButton.addClass("img-rounded");
   dislikeButton.attr("id", "dislike-btn");
-
   dislikeButton.attr("src", "assets/images/dislike-button3.png");
   buttonsDiv.append(dislikeButton);
 
@@ -331,51 +329,44 @@ function nextPhoto() {
   }
 }
 
-// Removes current photo and buttons in order to display the chosen restuarant info - a header 
-// with the restuarant name, the restaurant's Yelp rating/review count and a link to the
-// restaurant's Yelp page
-// getDirections is also executed and directions from the user's location to the restaurant 
-// are displayed, followed by buttons for going back to the photos or starting over with 
-// a new cuisine
 function lovePhoto() {
   $("#like-btn").hide();
   $("#dislike-btn").hide();
   $("#food-images").hide();
-  console.log('test');
 
   lovePhotoDiv = $("<div>");
   lovePhotoDiv.attr("id", "love-photo");
 
-  yelpInfoDiv = $("<div>").attr("id", "yelp-info-div")
+  var yelpInfoDiv = $("<div>");
+  yelpInfoDiv.attr("class", "yelp-info-div");
 
-  var businessNameDisplay = $("<h1>").html(businessInfo.businessName[imageCount]);
-  businessNameDisplay.attr("id", "business-name-display");
 
+  var businessDisplay = $("<h1>").html(businessInfo.businessName[imageCount]);
   var ratingImage = $("<img>");
   ratingImage.attr("src", businessInfo.businessRating[imageCount]);
   ratingImage.attr("alt", "Yelp Rating");
-
-  var yelpLink2 = $("<a>");
-  yelpLink2.attr("href", "http://www.yelp.com/biz/" + businessInfo.businessId[imageCount]);
+  var yelpLink2 = $("<a>").attr("href", "https://www.yelp.com/biz/" + businessInfo.businessId[imageCount]);
   yelpLink2.attr("target", "_blank");
   var yelpLogo2 = $("<img>");
   yelpLogo2.attr("src", "assets/images/Yelp_trademark_RGB_outline.png");
   yelpLogo2.attr("alt", "Yelp Logo");
   yelpLogo2.attr("id", "yelp-logo-2");
   yelpLink2.append(yelpLogo2);
-
   var ratingDisplay = $("<h2>");
-  ratingDisplay.attr("id", "rating-display");
   ratingDisplay.append(ratingImage);
   ratingDisplay.append(yelpLink2);
-
   var reviewCount = businessInfo.businessReviewCount[imageCount];
-  var reviewCountDisplay = $("<h4>").html("Based on " + reviewCount + " reviews");
+  var reviewCountDisplay = $("<h3>").html("Based on " + reviewCount + " reviews");
 
-  yelpInfoDiv.append(businessNameDisplay);
+  yelpInfoDiv.append(businessDisplay);
   yelpInfoDiv.append(ratingDisplay);
   yelpInfoDiv.append(reviewCountDisplay);
   lovePhotoDiv.append(yelpInfoDiv);
+
+  var chooseAnother = $("<div>");
+  chooseAnother.attr("id", "chooseAnother");
+  chooseAnother.text("Still not satisfied?");
+  lovePhotoDiv.append(chooseAnother);
 
   var returnButton = $("<button>");
   returnButton.attr("id", "return-btn");
@@ -384,13 +375,16 @@ function lovePhoto() {
   returnButton.html("Choose another restaurant");
   lovePhotoDiv.append(returnButton);
 
+  var startOverButton = $("<button>").text("Pick a New Cuisine");
+  startOverButton.addClass("btn btn-default");
+  startOverButton.attr("id", "start-over-btn");
+  lovePhotoDiv.append(startOverButton);
+
   // returns getDirections() which triggers google API directions search and embed
   getDirections();
 
   $("#main-section").append(lovePhotoDiv);
 }
-
-// Uses Google Maps Embed API to display directions from the user's current location
 
 function returnScreen() {
   // need to append a button to lovePhoto() screen to return to previous screen
@@ -427,6 +421,9 @@ function getDirections() {
 // MAIN PROCESS
 // ==========================================================================================
 
+// add facebook user authentication here:
+// -------------------->
+
 // Open the home screen immediately
 homeScreen();
 
@@ -436,6 +433,7 @@ homeScreen();
 $(document).on("click", "#home-screen-submit", function(event) {
   event.preventDefault();
   userLocation = $("#user-location").val().trim();
+  validation(userLocation);
   $("#user-location").val("");
   console.log(userLocation);
   $("#main-section").empty();
@@ -444,9 +442,8 @@ $(document).on("click", "#home-screen-submit", function(event) {
 
 // After the user chooses a cuisine type and clicks the get started button, the yelpSearch
 // function is executed without reloading the page
-$(document).one("click", "#get-started", function(event) {
+$(document).on("click", "#get-started", function(event) {
   event.preventDefault();
-
   if($('input[name=optradio]:checked').length === 0) {
     var needCuisineDiv = $("<div>");
     needCuisineDiv.attr("id", "need-cuisine-div");
@@ -463,20 +460,15 @@ $(document).one("click", "#get-started", function(event) {
       showPhoto();
     });
   }
-
-  cuisineChosen = $('input[name=optradio]:checked').val();
-  console.log(cuisineChosen);
-  yelpSearch();
-  $(document).ajaxStop(function() {
-    showPhoto();
-  });
 });
 
-// If the user clicks the like button execute the lovePhoto function
+// If the user clicks the like button execute the ??? function
 $(document).on("click", "#like-btn", lovePhoto);
+  // Execute function for showing yelp restaurant info and google maps directions
 
 // If the user clicks the dislike button, execute the nextPhoto function
 $(document).on("click", "#dislike-btn", nextPhoto);
+
 
 //If user clicks the return to screen option
 $(document).on("click", "#return-btn", function(event) {
@@ -485,42 +477,13 @@ $(document).on("click", "#return-btn", function(event) {
   returnScreen();
 });
 
-// // If the user clicks the dislike button, execute the nextPhoto function
-// $(document).on("click”, "#dislike-btn”, nextPhoto);
-$(document).on("click","#dislike-btn", nextPhoto);
+// If the user clicks the start over button, execute openScreen function in order to
+// choose a differen type of cuisine
+$(document).on("click", "#start-over-btn", function() {
+ event.preventDefault();
+ cuisinePicked = false;
 
-// If the user clicks the dislike button, execute the nextPhoto function
-$(document).on("click", "#dislike-btn", nextPhoto);
+ $("#love-photo").hide();
 
-// If the user clicks the dislike button, execute the nextPhoto function
-// $(document).on("click", "#dislike-btn", nextPhoto);
-$(document).on("click","#dislike-btn", nextPhoto);
-
-
-function validation(userLocation) {
-
-     
-
-   if (userLocation.length === 5) {
-        for( var i = 0; i < 5; i++) {
-          if (userLocation.charCodeAt(i) >= 48 && userLocation.charCodeAt(i) <= 57) { 
-            console.log("it is a zip code");
-          
-        }// end if
-        else if ((userLocation.charCodeAt(i) >= 65 && userLocation.charCodeAt(i) <= 90) || (userLocation.charCodeAt(i) >= 97 && userLocation.charCodeAt(i) <= 121) ){
-
-          console.log("It is a city");
-
-        } // end else of
-
-        else {
-          console.log("it is not a zip code or a city");
-          break;
-        }// end else
-        
-        }//end for
-
-     
-    }// end if
-
-}// end function
+ openScreen();
+});
