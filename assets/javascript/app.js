@@ -84,6 +84,7 @@ var userLocation;
 var cuisineChosen;
 var businessInfo = {
   businessName: [],
+  businessId: [],
   businessImages: [],
   businessAddress: [],
   businessRating: [],
@@ -113,9 +114,29 @@ function validation(userLocation) {
     }// end if
 }// end function
 
+$("input").keyup(function() {
+     if ($(".form-control").val() !== "") {
+       $("#home-screen-submit").removeAttr("disabled");
+     }
+     else {
+       $("#home-screen-submit").attr("disabled","disabled");
+     }
+   });
+
+// showing contact us form
+function div_show() {
+     document.getElementById("contact-us-form").style.display = "block";
+   }
+
+// Hiding contact us form.
+function div_hide() {
+     document.getElementById("contact-us-form").style.display = "none";
+   }
+
 function homeScreen() {
   var openingGreeting = $("<div>");
   openingGreeting.html("<h1 id ='opening-greeting'> What are you in the <span id='mood-text2'><i> mood </i></span> for?</h1>");
+
   var locationForm = $("<form>");
   locationForm.attr("id", "location-form");
   locationForm.html("<input class='form-control' id='user-location' type='text' name='user-location' placeholder='Enter your address to get started!'/>");
@@ -132,6 +153,16 @@ function homeScreen() {
 // Screen opened after the user inputs their location, lists cuisines types for the user to
 // choose from
 function openScreen() {
+  businessInfo = {
+    businessName: [],
+    businessId: [],
+    businessImages: [],
+    businessAddress: [],
+    businessRating: [],
+    businessReviewCount: [],
+  };
+
+
   var cuisineType = $("<div class='cuisine-type'>");
   cuisineType.html("<h1 id='cuisine-header' class='cuisine-type'> What type of cuisine " + userName2 + "? </h1>");
   $("#main-section").append(cuisineType);
@@ -204,7 +235,7 @@ function yelpSearch() {
       console.log(data);
       var businessName = [];
       for (var i = 0; i < 10; i++) {
-        var result = data.businesses[i].id;9
+        var result = data.businesses[i].id;
         // var result2 = result.replace( /\-\d+$/, "");
         businessName.push(result);
         console.log(businessName);
@@ -244,6 +275,9 @@ function yelpSearch() {
           var yelpAddress = response.location.address;
           var businessRating = response.rating_img_url;
           var businessReviewCount = response.review_count;
+          var businessId = response.id;
+
+          businessInfo.businessId.push(businessId);
           businessInfo.businessName.push(businessName);
           businessInfo.businessImages.push(customerImageL);
           businessInfo.businessAddress.push(yelpAddress);
@@ -331,10 +365,6 @@ function lovePhoto() {
 
   lovePhotoDiv = $("<div>");
   lovePhotoDiv.attr("id", "love-photo");
-  console.log('test');
-
-  lovePhotoDiv = $("<div>");
-  lovePhotoDiv.attr("id", "love-photo");
 
   var yelpInfoDiv = $("<div>");
   yelpInfoDiv.attr("class", "yelp-info-div");
@@ -344,14 +374,17 @@ function lovePhoto() {
   var ratingImage = $("<img>");
   ratingImage.attr("src", businessInfo.businessRating[imageCount]);
   ratingImage.attr("alt", "Yelp Rating");
+  var yelpLink2 = $("<a>").attr("href", "https://www.yelp.com/biz/" + businessInfo.businessId[imageCount]);
+  yelpLink2.attr("target", "_blank");
   var yelpLogo2 = $("<img>");
   // Need to link Yelp page!!!!
   yelpLogo2.attr("src", "assets/images/Yelp_trademark_RGB_outline.png");
   yelpLogo2.attr("alt", "Yelp Logo");
   yelpLogo2.attr("id", "yelp-logo-2");
+  yelpLink2.append(yelpLogo2);
   var ratingDisplay = $("<h2>");
   ratingDisplay.append(ratingImage);
-  ratingDisplay.append(yelpLogo2);
+  ratingDisplay.append(yelpLink2);
   var reviewCount = businessInfo.businessReviewCount[imageCount];
   var reviewCountDisplay = $("<h3>").html("Based on " + reviewCount + " reviews");
 
@@ -360,6 +393,11 @@ function lovePhoto() {
   yelpInfoDiv.append(reviewCountDisplay);
   lovePhotoDiv.append(yelpInfoDiv);
 
+  var chooseAnother = $("<div>");
+  chooseAnother.attr("id", "chooseAnother");
+  chooseAnother.text("Still not satisfied?");
+  lovePhotoDiv.append(chooseAnother);
+
   var returnButton = $("<button>");
   returnButton.attr("id", "return-btn");
   returnButton.attr("class", "btn btn-default");
@@ -367,14 +405,10 @@ function lovePhoto() {
   returnButton.html("Choose another restaurant");
   lovePhotoDiv.append(returnButton);
 
-  //facebook like button and share button rendering
-  // var facebookDiv = $("<div>");
-  // facebookDiv.addClass("fb-like");
-  // facebookDiv.attr("href", "https://teamlion7.github.io/foodMood_app-/");
-  // facebookDiv.attr("data-layout", "standard");
-  // facebookDiv.attr("data-action", "like");
-  // facebookDiv.attr("data-show-faces", "true");
-  // lovePhotoDiv.append(facebookDiv);
+  var startOverButton = $("<button>").text("Pick a New Cuisine");
+  startOverButton.addClass("btn btn-default");
+  startOverButton.attr("id", "start-over-btn");
+  lovePhotoDiv.append(startOverButton);
 
   // returns getDirections() which triggers google API directions search and embed
   getDirections();
@@ -465,9 +499,21 @@ $(document).on("click", "#like-btn", lovePhoto);
 // If the user clicks the dislike button, execute the nextPhoto function
 $(document).on("click", "#dislike-btn", nextPhoto);
 
+
 //If user clicks the return to screen option
 $(document).on("click", "#return-btn", function(event) {
   event.preventDefault();
   // bug found that you can't return to selection
   returnScreen();
+});
+
+// If the user clicks the start over button, execute openScreen function in order to
+// choose a differen type of cuisine
+$(document).on("click", "#start-over-btn", function() {
+ event.preventDefault();
+ cuisinePicked = false;
+
+ $("#love-photo").hide();
+
+ openScreen();
 });
