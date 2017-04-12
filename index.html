@@ -10,6 +10,7 @@
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
   <script type="text/javascript" src="https://rawgit.com/rmxdave/phnx/master/lib/OAuth/OAuth.js"></script>
   <script type="text/javascript" src="https://rawgit.com/rmxdave/phnx/master/lib/OAuth/SHA1.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
   <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 </head>
 <body>
@@ -93,10 +94,9 @@
   }
   </script>
 
-  <div id= "wrapper">
 
   <header id= "main-heading">
-      <h1 id="main-heading-text"> mood </h1>
+      <h1 id="main-heading-text"> mood <span id = "contact-us" onclick="div_show()"> <a> Contact Us </a> </span> </h1>
       <div id="facebook-wrapper">
         <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
           </fb:login-button>
@@ -119,7 +119,22 @@
       </div>
     </div>
   </div>
-</div>
+
+<!-- PopUp contact form -->
+<div id = "contact-us-form">
+ <div id = "popupContact">
+   <form id="form"  name="form">   <!-- method="post" -->
+       <img id="close" src="assets/images/Close-icon.png" onclick ="div_hide()">
+       <h2> Contact Us</h2>
+       <hr>
+       <input id="user-name"  placeholder="Name" type="text" size = "40"><br><br>
+       <input id="user-email" placeholder="Email" type="text" size = "40"><br><br>
+       <textarea id="user-msg" placeholder="Message" type = "text" size = "40"></textarea> <br>
+       <button id="submit-msg"  type="submit">Send</button>
+     </form>
+ </div>
+</div> <!-- end of contact-us-form -->
+
 
   <script src="assets/javascript/app.js"></script>
 </body>

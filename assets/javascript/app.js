@@ -94,6 +94,7 @@ var lovePhotoDiv;
 var cuisinePicked = false;
 var imageCount = 0;
 var lovePhotoDiv;
+
 // FUNCTIONS
 // =====================================================================================
 // Opening screen of app - asks user to input their location
@@ -114,9 +115,69 @@ function validation(userLocation) {
     }// end if
 }// end function
 
+// Initialize Firebase
+ var config = {
+   apiKey: "AIzaSyDSBv8dJ2nzh0mfhCLEoba_wioPc2FfqcA",
+   authDomain: "contact-us-cb646.firebaseapp.com",
+   databaseURL: "https://contact-us-cb646.firebaseio.com",
+   projectId: "contact-us-cb646",
+   storageBucket: "contact-us-cb646.appspot.com",
+   messagingSenderId: "73152289846"
+ };
+ firebase.initializeApp(config);
+
+ var database = firebase.database();
+
+
+// 2. Button for adding new user
+$("#submit-msg").on("click", function(event) {
+ event.preventDefault();
+
+ // Grabs train input
+ var name = $("#user-name").val().trim();
+ var email = $("#user-email").val().trim();
+ var message = $("#user-msg").val().trim();
+
+ //Creates local object for holding user's data
+ var newUser = {
+   userName: name,
+   userEmail: email,
+   userMessage: message
+ };
+
+ database.ref().push(newUser);
+
+  $("#user-name").val("");
+  $("#user-email").val("");
+  $("#user-msg").val("");
+
+ // Prevents moving to new page
+ return false;
+});
+
+$("input").keyup(function() {
+     if ($(".form-control").val() !== "") {
+       $("#home-screen-submit").removeAttr("disabled");
+     }
+     else {
+       $("#home-screen-submit").attr("disabled","disabled");
+     }
+   });
+
+// showing contact us form
+function div_show() {
+     document.getElementById("contact-us-form").style.display = "block";
+   }
+
+// Hiding contact us form.
+function div_hide() {
+     document.getElementById("contact-us-form").style.display = "none";
+   }
+
 function homeScreen() {
   var openingGreeting = $("<div>");
   openingGreeting.html("<h1 id ='opening-greeting'> What are you in the <span id='mood-text2'><i> mood </i></span> for?</h1>");
+
   var locationForm = $("<form>");
   locationForm.attr("id", "location-form");
   locationForm.html("<input class='form-control' id='user-location' type='text' name='user-location' placeholder='Enter your address to get started!'/>");
@@ -134,6 +195,15 @@ function homeScreen() {
 // choose from
 function openScreen() {
   $("#love-photo").show();
+
+  businessInfo = {
+    businessName: [],
+    businessId: [],
+    businessImages: [],
+    businessAddress: [],
+    businessRating: [],
+    businessReviewCount: [],
+  };
 
   var cuisineType = $("<div class='cuisine-type'>");
   cuisineType.html("<h1 id='cuisine-header' class='cuisine-type'> What type of cuisine " + userName2 + "? </h1>");
@@ -236,7 +306,7 @@ function yelpSearch() {
           'url': message2.action,
           'data': parameterMap2,
           'dataType' : 'jsonp',
-          'timeout': '1000',
+          'timeout': '1500',
           'cache': true
         }).done(function(response) {
           // need to store image value and replace "ms" in jpg to change with "l" or "o"
@@ -248,6 +318,7 @@ function yelpSearch() {
           var yelpAddress = response.location.address;
           var businessRating = response.rating_img_url;
           var businessReviewCount = response.review_count;
+
           businessInfo.businessName.push(businessName);
           businessInfo.businessId.push(businessId);
           businessInfo.businessImages.push(customerImageL);
@@ -484,6 +555,5 @@ $(document).on("click", "#start-over-btn", function() {
  cuisinePicked = false;
 
  $("#love-photo").hide();
-
  openScreen();
 });
